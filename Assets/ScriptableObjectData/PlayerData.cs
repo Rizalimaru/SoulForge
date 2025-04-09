@@ -8,6 +8,8 @@ public class PlayerData : ScriptableObject
     public float HP;
     public float speed;
     public float attackDamage;
-    public float pickRange;
+    public float pickRadius;
     public float armorPierce;
+    public float exp;
+
 }
