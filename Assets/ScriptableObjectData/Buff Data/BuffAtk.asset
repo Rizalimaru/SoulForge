@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffName: 10% Attack
   description: Menigkatkan 10% Attack Damage
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 980bc3868cbcd7241a2e99e8ba67295b, type: 3}
   buffType: 0
   value: 10
