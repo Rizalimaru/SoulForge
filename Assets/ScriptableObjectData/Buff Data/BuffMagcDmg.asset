@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070f756cb08a7e441a804d101fc8930e, type: 3}
   m_Name: BuffMagcDmg
   m_EditorClassIdentifier: 
-  buffName: 
-  description: 
-  icon: {fileID: 0}
+  buffName: 10% Magic Damage
+  description: Meningkatkan dmg serangan magis sebesar 10%
+  icon: {fileID: 21300000, guid: bbae3f0e8050d824da3b5f963c90a5d4, type: 3}
   buffType: 0
-  value: 0
+  value: 10

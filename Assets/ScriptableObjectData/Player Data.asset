@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   HP: 100
-  speed: 5
+  speed: 2.5
   attackDamage: 0
-  pickRange: 0
+  pickRadius: 0
   armorPierce: 0
+  exp: 0
