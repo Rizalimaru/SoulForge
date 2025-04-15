@@ -17,4 +17,8 @@ MonoBehaviour:
   attackDamage: 0
   pickRadius: 0
   armorPierce: 0
-  exp: 0
+  currnetXP: 90
+  maxXP: 1600
+  level: 4
+  score: 0
+  coin: 0

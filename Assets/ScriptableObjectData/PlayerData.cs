@@ -11,7 +11,9 @@ public class PlayerData : ScriptableObject
     public float attackDamage;
     public float pickRadius;
     public float armorPierce;
-    public float exp;
+    public float currnetXP;
+    public float maxXP;
+    public float level;
 
     [Header("Player Score and Currency")]
     public int score;
