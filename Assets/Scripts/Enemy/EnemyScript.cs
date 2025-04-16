@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 
-public class Enemy_Skeleton : MonoBehaviour
+public class EnemyScript : MonoBehaviour
 {
     private Transform target;
-    public Enemy_Data skeletonData;
-    private float armor, speedReduction;
+    public Enemy_Data enemyData;
+    private float speedReduction;
     public PlayerData playerData; // Referensi ke PlayerData
     public float HP;
     public float knockbackForce = 5f; // Kekuatan knockback
@@ -26,18 +25,17 @@ public class Enemy_Skeleton : MonoBehaviour
 
     void Start()
     {
-        HP = skeletonData.HP;
-        armor = skeletonData.armor;
-        speedReduction = skeletonData.speedReduction;
+        HP = enemyData.HP;
+        speedReduction = enemyData.speedReduction;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     void Update()
     {
-        if (!isKnockedBack)
+        if(!isKnockedBack)
         {
             // Gerakan normal jika tidak sedang terkena knockback
-            transform.position = Vector2.MoveTowards(transform.position, target.position, skeletonData.speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target.position, enemyData.speed * Time.deltaTime);
 
             if (target.transform.position.x < transform.position.x)
             {
@@ -79,8 +77,7 @@ public class Enemy_Skeleton : MonoBehaviour
         isKnockedBack = false;
     }
 
-
-    private void DropItems()
+        private void DropItems()
     {
         int totalDrops = Random.Range(1, maxDrop + 1); // Tentukan jumlah total item yang akan dijatuhkan
 
@@ -105,25 +102,23 @@ public class Enemy_Skeleton : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player"))
         {
             damageTimer += Time.deltaTime;
-
-            if (damageTimer >= damageInterval)
+            if(damageTimer >= damageInterval)
             {
-                playerData.HP -= skeletonData.damage;
-                damageTimer = 0f;
+                playerData.HP -= enemyData.damage; // Kurangi HP player
+                damageTimer = 0f; // Reset timer
             }
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player"))
         {
-            damageTimer = 0f;
+            damageTimer = 0f; // Reset timer saat keluar dari collision
         }
     }
-
 
 }

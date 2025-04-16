@@ -58,7 +58,7 @@ public class Sword : MonoBehaviour
         foreach(Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, circleRadius))
         {
             Debug.Log(collider.name);
-            Enemy_Skeleton enemy = collider.GetComponent<Enemy_Skeleton>();
+            EnemyScript enemy = collider.GetComponent<EnemyScript>();
             if (enemy != null)
             {
                 // Kurangi HP skeleton
@@ -67,7 +67,7 @@ public class Sword : MonoBehaviour
                 Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
                 enemy.ApplyKnockback(knockbackDirection);
 
-                Debug.Log($"Hit {collider.name}, remaining HP: {enemy.skeletonData.HP}");
+                Debug.Log($"Hit {collider.name}, remaining HP: {enemy.enemyData.HP}");
             }
         }
     }

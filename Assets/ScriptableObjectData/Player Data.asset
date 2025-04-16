@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   HP: 100
-  speed: 2.5
+  speed: 5
   attackDamage: 0
   pickRadius: 0
   armorPierce: 0
-  currnetXP: 90
-  maxXP: 1600
-  level: 4
+  currnetXP: 0
+  maxXP: 100
+  level: 1
+  knockbackForce: 0
   score: 0
-  coin: 0
+  coin: 38

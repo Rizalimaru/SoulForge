@@ -14,6 +14,7 @@ public class PlayerData : ScriptableObject
     public float currnetXP;
     public float maxXP;
     public float level;
+    public float knockbackForce;
 
     [Header("Player Score and Currency")]
     public int score;
