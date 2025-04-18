@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private InputActionReference movement, attack, pointerPosition;
     private Sword sword;
+    public GameObject pickupRadiusObject;
 
     void Awake()
     {   
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
         movementInput = movement.action.ReadValue<Vector2>();
 
         animatePlayer(); // Panggil animatePlayer di Update()
+
+        pickupRadiusObject.GetComponent<CircleCollider2D>().radius = playerData.pickRadius;// Perbarui radius collider sesuai dengan playerData
     }
 
     void FixedUpdate()

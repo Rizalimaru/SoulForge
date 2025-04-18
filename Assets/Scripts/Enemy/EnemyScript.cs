@@ -107,7 +107,7 @@ public class EnemyScript : MonoBehaviour
             damageTimer += Time.deltaTime;
             if(damageTimer >= damageInterval)
             {
-                playerData.HP -= enemyData.damage; // Kurangi HP player
+                playerData.currentHP -= enemyData.damage; // Kurangi HP player
                 damageTimer = 0f; // Reset timer
             }
         }

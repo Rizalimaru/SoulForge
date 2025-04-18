@@ -57,6 +57,31 @@ public class BuffSelectionUI : MonoBehaviour
     void SelectBuff(BuffData selectedBuff)
     {
         Debug.Log("Selected Buff: " + selectedBuff.buffName);
-        // Simpan ke player data / berikan efek
-    }
+        
+        // Tambahkan efek buff ke PlayerData berdasarkan jenis buff
+        switch (selectedBuff.buffType)
+        {
+            case BuffType.Attack:
+                playerData.attackDamage += selectedBuff.value;
+                break;
+            case BuffType.Speed:
+                playerData.speed += selectedBuff.value;
+                break;
+            // case BuffType.Healing:
+            //     playerData.health = Mathf.Min(playerData.maxHealth, playerData.health + selectedBuff.value);
+            //     break;
+            case BuffType.HP:
+                playerData.maxHP += Mathf.RoundToInt(playerData.baseHP * selectedBuff.value / 100f);
+                break;
+            case BuffType.pickRadius:
+                playerData.pickRadius += selectedBuff.value;
+                break;
+            default:
+                Debug.LogWarning("Buff type not handled: " + selectedBuff.buffType);
+                break;
+        }
+
+        // Tambahkan log untuk memverifikasi perubahan
+        Debug.Log("Player Data Updated: " + playerData);
+        }
 }

@@ -10,6 +10,6 @@ public class HPUI_Manager : MonoBehaviour
 
     void Update()
     {
-        hpBar.fillAmount = playerData.HP / 100; // Update HP bar berdasarkan HP saat ini
+        hpBar.fillAmount = playerData.currentHP / playerData.maxHP; // Update HP bar berdasarkan HP saat ini
     }
 }

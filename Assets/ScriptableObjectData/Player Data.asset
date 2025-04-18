@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ef75b79f75a8b49b13e3b633c0e1bd, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  HP: 100
+  currentHP: 100
+  currnetXP: 0
+  maxHP: 100
   speed: 5
   attackDamage: 0
-  pickRadius: 0
+  pickRadius: 2
   armorPierce: 0
-  currnetXP: 0
   maxXP: 100
   level: 1
   knockbackForce: 0
+  baseHP: 100
+  baseSpeed: 5
+  baseAttackDamage: 5
+  basePickRadius: 2
+  baseArmorPierce: 0
+  baseknockbackForce: 2
   score: 0
-  coin: 38
+  coin: 43

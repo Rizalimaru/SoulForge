@@ -111,7 +111,7 @@ public class Enemy_Skeleton : MonoBehaviour
 
             if (damageTimer >= damageInterval)
             {
-                playerData.HP -= skeletonData.damage;
+                playerData.currentHP -= skeletonData.damage;
                 damageTimer = 0f;
             }
         }
