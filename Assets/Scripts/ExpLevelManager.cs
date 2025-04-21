@@ -7,6 +7,8 @@ public class ExpLevelManager : MonoBehaviour
 {
     public Image expBar;
     public PlayerData playerData;
+    public GameObject UIBuffSelection;
+    public BuffSelectionUI buffSelectionUI;
 
     void Start()
     {
@@ -33,6 +35,10 @@ public class ExpLevelManager : MonoBehaviour
         playerData.currnetXP = 0;
         playerData.level += 1;
         playerData.maxXP = 100 * (playerData.level * playerData.level);
+        Time.timeScale = 0;
+        buffSelectionUI.DisplayRandomBuffs(); // Tampilkan buff baru
+        UIBuffSelection.SetActive(true);
+
     }
 
 

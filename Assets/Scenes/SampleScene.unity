@@ -235,7 +235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 91.971}
+  m_AnchoredPosition: {x: -352.6, y: 91.971}
   m_SizeDelta: {x: 220.3143, y: 59.0286}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11450204
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 83506320}
   - component: {fileID: 83506319}
   m_Layer: 5
-  m_Name: Magic Damage
+  m_Name: Pickup Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Magic Damage
+  m_text: Pickup Radius
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 828e909f6eb56a64486c0dca5e5578c8, type: 2}
   m_sharedMaterial: {fileID: 6556808682225078529, guid: 828e909f6eb56a64486c0dca5e5578c8, type: 2}
@@ -1990,7 +1990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &692676436
 Transform:
   m_ObjectHideFlags: 0
@@ -4331,6 +4331,7 @@ MonoBehaviour:
   delayAttack: 2
   circleOrigin: {fileID: 1547546982}
   circleRadius: 1
+  playerData: {fileID: 11400000, guid: bab46b32c82197749bff9cbb654da393, type: 2}
 --- !u!1 &1623574196
 GameObject:
   m_ObjectHideFlags: 0
@@ -4470,6 +4471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expBar: {fileID: 775785465}
   playerData: {fileID: 11400000, guid: bab46b32c82197749bff9cbb654da393, type: 2}
+  UIBuffSelection: {fileID: 1623574196}
+  buffSelectionUI: {fileID: 2097832404}
 --- !u!4 &1633297040
 Transform:
   m_ObjectHideFlags: 0
@@ -4511,7 +4514,7 @@ GameObject:
   - component: {fileID: 1673560333}
   - component: {fileID: 1673560332}
   m_Layer: 5
-  m_Name: MagicDmg
+  m_Name: PickRadius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5383,6 +5386,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37a6c2191e877a24c991b36a670d407e, type: 2}
   - {fileID: 11400000, guid: 82d603de2fc62934caaa8443b0db00e3, type: 2}
   playerData: {fileID: 11400000, guid: bab46b32c82197749bff9cbb654da393, type: 2}
+  Hpdata: {fileID: 1728163478}
+  attackSpeedData: {fileID: 11450204}
+  movementSpdeedData: {fileID: 559272338}
+  HpRegenData: {fileID: 421216607}
+  pickRadiusData: {fileID: 0}
+  UIBuffSelection: {fileID: 1623574196}
 --- !u!4 &2097832405
 Transform:
   m_ObjectHideFlags: 0

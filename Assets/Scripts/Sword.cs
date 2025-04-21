@@ -12,6 +12,7 @@ public class Sword : MonoBehaviour
     private bool attackBlock;
     public Transform circleOrigin;
     public float circleRadius;
+    public PlayerData playerData;
     
     void Update()
     {   
@@ -62,7 +63,7 @@ public class Sword : MonoBehaviour
             if (enemy != null)
             {
                 // Kurangi HP skeleton
-                enemy.HP -= 2; // Sesuaikan jumlah damage sesuai kebutuhan
+                enemy.HP -= playerData.attackDamage;
                 
                 Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
                 enemy.ApplyKnockback(knockbackDirection);

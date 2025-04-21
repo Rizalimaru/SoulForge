@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public PlayerData playerData;
     private float maxSpeed, acceleration = 50, deceleration = 50, currentSpeed = 0;
     private bool isSpeedReduced = false;
-    private float originalSpeed;
     [SerializeField] 
     private Rigidbody2D rb;
     private Animator animator;
@@ -22,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {   
-        originalSpeed = playerData.speed;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -42,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {   
-        maxSpeed = playerData.speed;
+        maxSpeed = playerData.currentSpeed;
         if(movementInput.magnitude > 0 && currentSpeed >= 0)
         {   
             animator.SetBool("isMove", true);
@@ -89,9 +87,9 @@ public class PlayerController : MonoBehaviour
     public IEnumerator speedReduction()
     {
         isSpeedReduced = true;
-        playerData.speed = playerData.speed * 0.5f;
+        playerData.currentSpeed = playerData.currentSpeed * 0.5f;
         yield return new WaitForSeconds(2f);
-        playerData.speed = originalSpeed;
+        playerData.currentSpeed = playerData.speed;
         isSpeedReduced = false;
     }
 

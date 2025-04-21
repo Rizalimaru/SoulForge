@@ -8,6 +8,7 @@ public class PlayerData : ScriptableObject
     [Header("Current Stats")]
     public float currentHP;
     public float currnetXP;
+    public float currentSpeed;
     [Header("Player Stats")]
     public float maxHP;
     public float speed;
@@ -17,6 +18,7 @@ public class PlayerData : ScriptableObject
     public float maxXP;
     public float level;
     public float knockbackForce;
+    public float regen;
     
     [Header("Base Stats")]
     public float baseHP;
@@ -25,6 +27,7 @@ public class PlayerData : ScriptableObject
     public float basePickRadius;
     public float baseArmorPierce;
     public float baseknockbackForce;
+    public float baseRegen;
 
     [Header("Player Score and Currency")]
     public int score;

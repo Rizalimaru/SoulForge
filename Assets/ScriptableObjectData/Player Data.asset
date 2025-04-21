@@ -14,19 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHP: 100
   currnetXP: 0
+  currentSpeed: 5
   maxHP: 100
   speed: 5
-  attackDamage: 0
+  attackDamage: 10
   pickRadius: 2
   armorPierce: 0
-  maxXP: 100
-  level: 1
+  maxXP: 400
+  level: 2
   knockbackForce: 0
+  regen: 0
   baseHP: 100
   baseSpeed: 5
   baseAttackDamage: 5
   basePickRadius: 2
   baseArmorPierce: 0
   baseknockbackForce: 2
+  baseRegen: 0
   score: 0
-  coin: 43
+  coin: 70

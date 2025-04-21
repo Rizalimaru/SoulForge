@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070f756cb08a7e441a804d101fc8930e, type: 3}
   m_Name: BuffMoveSpd
   m_EditorClassIdentifier: 
-  buffName: 15% Attack Speed
+  buffName: 15% Movement Speed
   description: Meningkatkan 15% Movement Speed
   icon: {fileID: 21300000, guid: 63cb72a9976571d41a0d47edb1ae2cc6, type: 3}
   buffType: 2
