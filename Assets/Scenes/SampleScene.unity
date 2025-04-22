@@ -5385,6 +5385,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2dc9be2ff615eec4da3f141f5d441df5, type: 2}
   - {fileID: 11400000, guid: 37a6c2191e877a24c991b36a670d407e, type: 2}
   - {fileID: 11400000, guid: 82d603de2fc62934caaa8443b0db00e3, type: 2}
+  - {fileID: 11400000, guid: 55ffc06485b6e3a4ba9b9d18ff6e1e9d, type: 2}
   playerData: {fileID: 11400000, guid: bab46b32c82197749bff9cbb654da393, type: 2}
   Hpdata: {fileID: 1728163478}
   attackSpeedData: {fileID: 11450204}

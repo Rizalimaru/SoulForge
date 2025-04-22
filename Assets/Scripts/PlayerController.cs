@@ -27,6 +27,20 @@ public class PlayerController : MonoBehaviour
         sword = GetComponentInChildren<Sword>();
     }
 
+    void Start()
+    {
+        playerData.maxHP = playerData.baseHP;
+        playerData.currentHP = playerData.maxHP;
+        playerData.currentSpeed = playerData.baseSpeed;
+        playerData.attackDamage = playerData.baseAttackDamage;
+        playerData.pickRadius = playerData.basePickRadius;
+        playerData.armorPierce = playerData.baseArmorPierce;
+        playerData.knockbackForce = playerData.baseknockbackForce;
+        playerData.regen = playerData.baseRegen;
+        playerData.maxXP = playerData.baseMaxXP;
+        playerData.level = 1;
+    }
+
     void Update()
     {   
         pointerInput = GetMouseInput();

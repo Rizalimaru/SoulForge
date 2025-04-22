@@ -28,6 +28,7 @@ public class PlayerData : ScriptableObject
     public float baseArmorPierce;
     public float baseknockbackForce;
     public float baseRegen;
+    public float baseMaxXP;
 
     [Header("Player Score and Currency")]
     public int score;

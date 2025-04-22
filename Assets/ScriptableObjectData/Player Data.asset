@@ -31,5 +31,6 @@ MonoBehaviour:
   baseArmorPierce: 0
   baseknockbackForce: 2
   baseRegen: 0
+  baseMaxXP: 100
   score: 0
   coin: 70
