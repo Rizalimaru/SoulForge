@@ -20,7 +20,7 @@ public class DropMoveToPlayer : MonoBehaviour
         // Move the object towards the player's position over time
         while (Vector2.Distance(transform.position, player.position) > 0.1f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, Time.deltaTime * 5f);
+            transform.position = Vector2.MoveTowards(transform.position, player.position, Time.deltaTime * 10f);
             yield return null;
         }
         if(this.CompareTag("coin"))

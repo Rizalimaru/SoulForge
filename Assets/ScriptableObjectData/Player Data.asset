@@ -17,12 +17,12 @@ MonoBehaviour:
   currentSpeed: 5
   maxHP: 100
   speed: 5
-  attackDamage: 10
+  attackDamage: 5
   pickRadius: 2
   armorPierce: 0
-  maxXP: 400
-  level: 2
-  knockbackForce: 0
+  maxXP: 100
+  level: 1
+  knockbackForce: 2
   regen: 0
   baseHP: 100
   baseSpeed: 5
