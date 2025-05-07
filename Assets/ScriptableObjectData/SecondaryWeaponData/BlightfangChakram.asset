@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eadf31da2c1df74a83fde849413f46d, type: 3}
   m_Name: BlightfangChakram
   m_EditorClassIdentifier: 
-  weaponName: BlightfangChakram
+  weaponName: Blightfang Chakram
   description: 
   imageIcon: {fileID: 21300000, guid: 7bf3163dc1fdd954881a6b9a4613733f, type: 3}
   damage: 0

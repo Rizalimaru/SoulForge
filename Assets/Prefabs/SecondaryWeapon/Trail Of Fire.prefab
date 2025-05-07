@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5893466986023326480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451898285581086243}
+  - component: {fileID: 3286117814319072525}
+  m_Layer: 6
+  m_Name: Trail Of Fire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &451898285581086243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893466986023326480}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6123263733327111710}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3286117814319072525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893466986023326480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed9524ca4bcdc147bba3234ee44b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondaryWeaponData: {fileID: 11400000, guid: f6b3e2683dc4e574784028b17cd5a733, type: 2}
+  fireTrailPrefab: {fileID: 677921693858578896, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+  spawnInterval: 0.1
+--- !u!1001 &5137697425487493378
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 451898285581086243}
+    m_Modifications:
+    - target: {fileID: 677921693858578896, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_Name
+      value: infernoTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 677921693858578896, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+--- !u!4 &6123263733327111710 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1420594836701994780, guid: f6e1d4a5af7839e4687dca7882de541d, type: 3}
+  m_PrefabInstance: {fileID: 5137697425487493378}
+  m_PrefabAsset: {fileID: 0}

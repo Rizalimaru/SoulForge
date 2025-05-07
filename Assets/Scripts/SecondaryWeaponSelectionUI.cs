@@ -17,12 +17,15 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
     public WeaponButton[] weaponButtons;
     public List<SecondaryWeaponData> availableWeapons; // List senjata yang mungkin ditampilkan
     public List<SecondaryWeaponData> selectedWeapons = new List<SecondaryWeaponData>(); // List senjata yang sudah dipilih
+    public List<GameObject> weaponObjects;
     public GameObject UIWeaponSelection;
     public BuffSelectionUI selectionUI;
+    public GameObject secondaryWeaponSelectionUI;
 
     void Start()
     {
-        DisplayRandomWeapons(); // Tampilkan senjata secara acak saat awal
+        //DisplayRandomWeapons(); // Tampilkan senjata secara acak saat awal
+        
     }
     public void DisplayRandomWeapons()
     {
@@ -125,14 +128,13 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
             selectedWeapons.Add(selectedWeapon);
 
             // Aktifkan GameObject senjata jika pertama kali diambil
-            GameObject weaponObject = GameObject.Find(selectedWeapon.weaponName); // Pastikan nama GameObject sesuai dengan nama senjata
-            if (weaponObject != null)
+            foreach (GameObject weaponObject in weaponObjects)
             {
-                weaponObject.SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("Weapon GameObject not found: " + selectedWeapon.weaponName);
+                if (weaponObject.name == selectedWeapon.weaponName)
+                {
+                    weaponObject.SetActive(true);
+                    break;
+                }
             }
         }
         else
@@ -154,6 +156,9 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
             // Tampilkan pilihan senjata berikutnya
             DisplayRandomWeapons();
         }
+
+        // Nonaktifkan UI Weapon Selection setelah senjata dipilih
+        UIWeaponSelection.SetActive(false);
     }
 
     void SelectBuff(BuffData selectedBuff)

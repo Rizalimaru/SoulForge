@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,57 +9,105 @@ public class EnemySpawnData
     public int pointCost;
 }
 
+[System.Serializable]
+public class Wave
+{
+    public string waveName; // Nama gelombang (opsional)
+    public List<EnemySpawnData> enemies; // Daftar musuh yang akan muncul di gelombang ini
+    public int enemyCount; // Jumlah total musuh di gelombang ini
+    public float spawnInterval; // Waktu antar spawn musuh
+}
+
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Spawner Settings")]
-    public float pointGainRate = 1f; // poin per detik
-    public float spawnInterval = 1f; // waktu antar percobaan spawn
-    public List<EnemySpawnData> enemies;
+    [Header("Wave Settings")]
+    public List<Wave> waves; // Daftar semua gelombang
+    public Transform[] spawnPoints; // Titik spawn musuh
+    public float timeBetweenWaves = 5f; // Waktu jeda antar gelombang
 
-    private float currentPoints = 0f;
-    private float spawnTimer = 0f;
+    private int currentWaveIndex = 0; // Indeks gelombang saat ini
+    private bool isSpawning = false; // Apakah sedang melakukan spawn
 
-    void Update()
+    public GameObject secondaryWeaponSelectionUI;
+    public SecondaryWeaponSelectionUI secondaryWeaponSelectionUIManager; // Referensi ke UI pemilihan senjata sekunder
+
+    void Start()
     {
-        // Tambah poin seiring waktu
-        currentPoints += pointGainRate * Time.deltaTime;
-
-        // Hitung waktu spawn
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnInterval)
-        {
-            TrySpawnEnemy();
-            spawnTimer = 0f;
-        }
+        StartCoroutine(StartWaveSystem());
     }
 
-    void TrySpawnEnemy()
+    IEnumerator StartWaveSystem()
     {
-        // Acak daftar agar spawn musuh tidak selalu sama urutannya
-        var shuffledEnemies = new List<EnemySpawnData>(enemies);
-        Shuffle(shuffledEnemies);
-
-        foreach (var enemyData in shuffledEnemies)
+        while (currentWaveIndex < waves.Count)
         {
-            if (enemyData.pointCost <= currentPoints)
+            Wave currentWave = waves[currentWaveIndex];
+            Debug.Log("Starting Wave: " + currentWave.waveName);
+
+            // Mulai spawn musuh untuk gelombang saat ini
+            yield return StartCoroutine(SpawnWave(currentWave));
+
+            // Tunggu hingga semua musuh di gelombang ini dikalahkan
+            while (!IsWaveComplete())
             {
-                // Spawn musuh
-                Instantiate(enemyData.enemyPrefab, transform.position, Quaternion.identity);
-                currentPoints -= enemyData.pointCost;
-                break; // satu musuh per percobaan
+                yield return null; // Tunggu satu frame
+            }
+
+            Debug.Log("Wave " + currentWave.waveName + " completed!");
+
+            // Hentikan waktu dan tampilkan UI untuk secondary weapon selection
+            Time.timeScale = 0;
+            secondaryWeaponSelectionUI.SetActive(true);
+            secondaryWeaponSelectionUIManager.DisplayRandomWeapons(); // Tampilkan senjata secara acak
+
+            // Tunggu hingga pemain menutup UI (misalnya, dengan tombol konfirmasi)
+            while (secondaryWeaponSelectionUI.activeSelf)
+            {
+                yield return null; // Tunggu satu frame
+            }
+
+            // Lanjutkan waktu setelah UI ditutup
+            Time.timeScale = 1;
+
+            // Lanjutkan ke gelombang berikutnya
+            currentWaveIndex++;
+
+            if (currentWaveIndex < waves.Count)
+            {
+                Debug.Log("Next wave starting in " + timeBetweenWaves + " seconds...");
+                yield return new WaitForSeconds(timeBetweenWaves);
             }
         }
+
+        Debug.Log("All waves completed!");
     }
 
-    // Fungsi untuk mengacak daftar musuh (Fisher-Yates Shuffle)
-    void Shuffle(List<EnemySpawnData> list)
+    IEnumerator SpawnWave(Wave wave)
     {
-        for (int i = 0; i < list.Count; i++)
+        int spawnedEnemies = 0;
+        isSpawning = true;
+
+        while (spawnedEnemies < wave.enemyCount)
         {
-            int rnd = Random.Range(i, list.Count);
-            var temp = list[i];
-            list[i] = list[rnd];
-            list[rnd] = temp;
+            // Pilih musuh secara acak dari daftar musuh di gelombang ini
+            EnemySpawnData randomEnemy = wave.enemies[Random.Range(0, wave.enemies.Count)];
+
+            // Pilih titik spawn secara acak
+            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+            // Spawn musuh
+            Instantiate(randomEnemy.enemyPrefab, randomSpawnPoint.position, Quaternion.identity);
+            spawnedEnemies++;
+
+            // Tunggu sebelum spawn musuh berikutnya
+            yield return new WaitForSeconds(wave.spawnInterval);
         }
+
+        isSpawning = false;
+    }
+
+    public bool IsWaveComplete()
+    {
+        // Periksa apakah semua musuh di gelombang saat ini sudah mati
+        return isSpawning == false && GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
     }
 }

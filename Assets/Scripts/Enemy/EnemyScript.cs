@@ -12,6 +12,8 @@ public class EnemyScript : MonoBehaviour
     public float knockbackForce = 5f; // Kekuatan knockback
     public float knockbackDuration = 0.2f; // Durasi knockback
     private bool isKnockedBack = false;
+    private Rigidbody2D rb; // Tambahkan Rigidbody2D untuk knockback
+
     [Header("Interval Damage")]
     public float damageInterval = 1f; // Interval waktu untuk mengurangi HP player
     private float damageTimer = 0f; // Timer untuk menghitung waktu
@@ -28,15 +30,18 @@ public class EnemyScript : MonoBehaviour
         HP = enemyData.HP;
         speedReduction = enemyData.speedReduction;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        rb = GetComponent<Rigidbody2D>(); // Ambil Rigidbody2D
     }
 
     void Update()
     {
-        if(!isKnockedBack)
+        if (!isKnockedBack)
         {
             // Gerakan normal jika tidak sedang terkena knockback
-            transform.position = Vector2.MoveTowards(transform.position, target.position, enemyData.speed * Time.deltaTime);
+            Vector2 direction = (target.position - transform.position).normalized;
+            rb.velocity = direction * enemyData.speed;
 
+            // Atur orientasi musuh berdasarkan posisi pemain
             if (target.transform.position.x < transform.position.x)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
@@ -63,21 +68,21 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-
     private IEnumerator PerformKnockback(Vector2 direction)
     {
         float timer = 0f;
         while (timer < knockbackDuration)
         {
-            transform.Translate(direction * knockbackForce * Time.deltaTime);
+            rb.velocity = direction * knockbackForce; // Gunakan Rigidbody2D untuk knockback
             timer += Time.deltaTime;
             yield return null;
         }
 
-        isKnockedBack = false;
+        rb.velocity = Vector2.zero; // Hentikan gerakan setelah knockback selesai
+        isKnockedBack = false; // Kembali ke status normal
     }
 
-        private void DropItems()
+    private void DropItems()
     {
         int totalDrops = Random.Range(1, maxDrop + 1); // Tentukan jumlah total item yang akan dijatuhkan
 
@@ -102,10 +107,10 @@ public class EnemyScript : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             damageTimer += Time.deltaTime;
-            if(damageTimer >= damageInterval)
+            if (damageTimer >= damageInterval)
             {
                 playerData.currentHP -= enemyData.damage; // Kurangi HP player
                 damageTimer = 0f; // Reset timer
@@ -115,7 +120,7 @@ public class EnemyScript : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             damageTimer = 0f; // Reset timer saat keluar dari collision
         }
