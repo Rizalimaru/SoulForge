@@ -15,7 +15,9 @@ MonoBehaviour:
   weaponName: Stormcaller Bow
   description: 
   imageIcon: {fileID: 21300000, guid: 21eba972290228c44a3222770b3d058e, type: 3}
-  damage: 5
-  time: 0
-  level: 1
-  maxLevel: 3
+  baseDamage: 0
+  baseCooldown: 0
+  levels:
+  - {fileID: 11400000, guid: 73f792cbd52a8144d82e6e78ee46b522, type: 2}
+  - {fileID: 11400000, guid: eabe53d72ad32e0499b81a9b3e80c66a, type: 2}
+  - {fileID: 11400000, guid: 640a0f9ad4064a740936bf0aa31dbd9b, type: 2}

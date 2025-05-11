@@ -76,10 +76,12 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
 
             // Tampilkan senjata ke UI
             weaponButtons[i].Icon.sprite = weapon.imageIcon;
-            weaponButtons[i].weaponName.text = weapon.weaponName;
+
+            // Tambahkan level senjata ke nama senjata
+            int currentLevelIndex = Mathf.Min(weapon.levels.Count - 1, 0);
+            weaponButtons[i].weaponName.text = $"{weapon.weaponName} (Level {weapon.levels[currentLevelIndex].level})";
 
             // Perbarui deskripsi berdasarkan level saat ini
-            int currentLevelIndex = Mathf.Min(weapon.levels.Count - 1, 0);
             weaponButtons[i].description.text = weapon.levels[currentLevelIndex].description;
 
             int index = i; // Simpan index untuk closure
