@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffName: 5% Puck Up Radius
   description: Meningkatkan pick up radius item sebesar 5%
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 50bf66be0eb9a0c47b0a1c7124b7bf26, type: 3}
   buffType: 5
   value: 5

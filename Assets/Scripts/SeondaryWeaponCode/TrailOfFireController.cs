@@ -10,7 +10,13 @@ public class TrailOfFireController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(spawnFireTrail());  
+        if (secondaryWeaponData == null)
+        {
+            Debug.LogError("SecondaryWeaponData is not assigned!");
+            return;
+        }
+
+        StartCoroutine(spawnFireTrail());
     }
 
     IEnumerator spawnFireTrail()
@@ -33,7 +39,7 @@ public class TrailOfFireController : MonoBehaviour
         Animator fireTrailAnimator = fireTrail.GetComponent<Animator>();
 
         // Tunggu hingga waktu dari secondaryWeaponData.time habis
-        yield return new WaitForSeconds(secondaryWeaponData.time);
+        yield return new WaitForSeconds(secondaryWeaponData.levels[0].cooldownReduction); // Gunakan level 0 sebagai contoh
 
         if (fireTrailAnimator != null)
         {
@@ -47,7 +53,4 @@ public class TrailOfFireController : MonoBehaviour
         // Hancurkan fire trail
         Destroy(fireTrail);
     }
-
-
-
 }

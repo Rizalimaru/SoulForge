@@ -101,9 +101,19 @@ public class PlayerController : MonoBehaviour
     public IEnumerator speedReduction()
     {
         isSpeedReduced = true;
-        playerData.currentSpeed = playerData.currentSpeed * 0.5f;
+
+        // Simpan kecepatan asli sebelum pengurangan
+        float originalSpeed = playerData.currentSpeed;
+
+        // Kurangi kecepatan pemain
+        playerData.currentSpeed = originalSpeed * 0.5f;
+
+        // Tunggu selama 2 detik
         yield return new WaitForSeconds(2f);
-        playerData.currentSpeed = playerData.speed;
+
+        // Kembalikan kecepatan pemain ke nilai aslinya
+        playerData.currentSpeed = playerData.baseSpeed;
+
         isSpeedReduced = false;
     }
 

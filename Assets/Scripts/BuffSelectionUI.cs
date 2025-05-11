@@ -17,6 +17,7 @@ public class BuffSelectionUI : MonoBehaviour
     public BuffButton[] buffButtons; // isi 4 data di inspector
     public BuffData[] availableBuffs; // list buff yang mungkin ditampilkan
     public PlayerData playerData;
+    public TritsData bigFivePersonalityData;
 
     [Header("Buff Data UI")]
     public TextMeshProUGUI Hpdata;
@@ -97,10 +98,22 @@ public class BuffSelectionUI : MonoBehaviour
                 playerData.maxHP += Mathf.RoundToInt(playerData.baseHP * selectedBuff.value / 100f);
                 playerData.currentHP = playerData.maxHP; // Set HP saat ini ke max HP setelah buff
                 UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
+                bigFivePersonalityData.Extraversion += 2;
+                bigFivePersonalityData.Conscientiousness +=3;
+                bigFivePersonalityData.Agreeableness += 1;
+                bigFivePersonalityData.Neuroticism += 3;
+                //bigFivePersonalityData.Openness += 0;
                 Time.timeScale = 1; // Resume game setelah buff dipilih
                 break;
             case BuffType.pickRadius:
                 playerData.pickRadius += selectedBuff.value;
+                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
+                bigFivePersonalityData.Extraversion -= 2;
+                bigFivePersonalityData.Conscientiousness += 2;
+                //bigFivePersonalityData.Agreeableness += 1;
+                bigFivePersonalityData.Neuroticism += 1;
+                bigFivePersonalityData.Openness += 1;
+                Time.timeScale = 1; // Resume game setelah buff dipilih
                 break;
             default:
                 Debug.LogWarning("Buff type not handled: " + selectedBuff.buffType);

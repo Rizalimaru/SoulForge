@@ -21,27 +21,33 @@ public class Wave
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Wave Settings")]
-    public List<Wave> waves; // Daftar semua gelombang
+    public List<EnemySpawnData> enemies; // Daftar semua jenis musuh
     public Transform[] spawnPoints; // Titik spawn musuh
     public float timeBetweenWaves = 5f; // Waktu jeda antar gelombang
+    public int initialEnemyCount = 10; // Jumlah musuh awal di gelombang pertama
+    public float enemyCountIncreaseRate = 0.1f; // Persentase peningkatan jumlah musuh per gelombang (10%)
 
     private int currentWaveIndex = 0; // Indeks gelombang saat ini
     private bool isSpawning = false; // Apakah sedang melakukan spawn
+    private int currentEnemyCount; // Jumlah musuh di gelombang saat ini
 
     public GameObject secondaryWeaponSelectionUI;
     public SecondaryWeaponSelectionUI secondaryWeaponSelectionUIManager; // Referensi ke UI pemilihan senjata sekunder
 
     void Start()
     {
+        currentEnemyCount = initialEnemyCount; // Set jumlah musuh awal
         StartCoroutine(StartWaveSystem());
     }
 
     IEnumerator StartWaveSystem()
     {
-        while (currentWaveIndex < waves.Count)
+        while (true) // Loop tanpa batas untuk gelombang
         {
-            Wave currentWave = waves[currentWaveIndex];
-            Debug.Log("Starting Wave: " + currentWave.waveName);
+            Debug.Log("Starting Wave: " + (currentWaveIndex + 1));
+
+            // Buat gelombang baru
+            Wave currentWave = GenerateWave();
 
             // Mulai spawn musuh untuk gelombang saat ini
             yield return StartCoroutine(SpawnWave(currentWave));
@@ -52,7 +58,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return null; // Tunggu satu frame
             }
 
-            Debug.Log("Wave " + currentWave.waveName + " completed!");
+            Debug.Log("Wave " + (currentWaveIndex + 1) + " completed!");
 
             // Hentikan waktu dan tampilkan UI untuk secondary weapon selection
             Time.timeScale = 0;
@@ -68,17 +74,28 @@ public class EnemySpawner : MonoBehaviour
             // Lanjutkan waktu setelah UI ditutup
             Time.timeScale = 1;
 
+            // Tingkatkan jumlah musuh untuk gelombang berikutnya
+            currentEnemyCount = Mathf.CeilToInt(currentEnemyCount * (1 + enemyCountIncreaseRate));
+
             // Lanjutkan ke gelombang berikutnya
             currentWaveIndex++;
 
-            if (currentWaveIndex < waves.Count)
-            {
-                Debug.Log("Next wave starting in " + timeBetweenWaves + " seconds...");
-                yield return new WaitForSeconds(timeBetweenWaves);
-            }
+            Debug.Log("Next wave starting in " + timeBetweenWaves + " seconds...");
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
+    }
 
-        Debug.Log("All waves completed!");
+    Wave GenerateWave()
+    {
+        Wave newWave = new Wave
+        {
+            waveName = "Wave " + (currentWaveIndex + 1),
+            enemies = enemies, // Gunakan daftar musuh yang ada
+            enemyCount = currentEnemyCount, // Jumlah musuh berdasarkan perhitungan
+            spawnInterval = Mathf.Max(0.5f, 2f - (currentWaveIndex * 0.1f)) // Kurangi interval spawn secara bertahap
+        };
+
+        return newWave;
     }
 
     IEnumerator SpawnWave(Wave wave)
@@ -88,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
 
         while (spawnedEnemies < wave.enemyCount)
         {
-            // Pilih musuh secara acak dari daftar musuh di gelombang ini
+            // Pilih musuh secara acak dari daftar musuh
             EnemySpawnData randomEnemy = wave.enemies[Random.Range(0, wave.enemies.Count)];
 
             // Pilih titik spawn secara acak
