@@ -14,13 +14,19 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
         public Text description;
     }
 
+    [System.Serializable]
+    public class WeaponEntry
+    {
+        public SecondaryWeaponData weaponData;
+        public GameObject weaponObject;
+        public int currentLevel = 0; // Mulai dari level 0 (belum punya/level awal)
+    }
+
     public WeaponButton[] weaponButtons;
-    public List<SecondaryWeaponData> availableWeapons; // List senjata yang mungkin ditampilkan
-    public List<SecondaryWeaponData> selectedWeapons = new List<SecondaryWeaponData>(); // List senjata yang sudah dipilih
-    public List<GameObject> weaponObjects;
     public GameObject UIWeaponSelection;
     public BuffSelectionUI selectionUI;
     public GameObject secondaryWeaponSelectionUI;
+    public List<WeaponEntry> weaponEntries; // Drag WeaponData dan GameObject di Inspector
 
     void Start()
     {
@@ -29,67 +35,42 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
 
     public void DisplayRandomWeapons()
     {
-        // Jika semua senjata sudah level maksimal, tampilkan buff selection
-        if (selectedWeapons.Count == 3 && AllWeaponsMaxLevel())
-        {
-            DisplayBuffSelection();
-            return;
-        }
+        List<WeaponEntry> selectableWeapons = new List<WeaponEntry>();
 
-        // List untuk randomisasi
-        List<SecondaryWeaponData> tempWeaponList = new List<SecondaryWeaponData>();
-
-        // Jika belum mencapai 3 senjata, tambahkan senjata level 1
-        if (selectedWeapons.Count < 3)
+        // Pilih senjata yang belum diambil (level 0) atau yang bisa di-upgrade
+        foreach (var entry in weaponEntries)
         {
-            foreach (var weapon in availableWeapons)
+            if (entry.currentLevel < entry.weaponData.levels.Count)
             {
-                if (weapon.levels[0].level == 1 && !selectedWeapons.Contains(weapon))
-                {
-                    tempWeaponList.Add(weapon);
-                }
-            }
-        }
-        else
-        {
-            // Jika sudah 3 senjata, hanya tampilkan senjata yang sudah dipilih untuk upgrade
-            foreach (var weapon in selectedWeapons)
-            {
-                if (weapon.levels.Count > weapon.levels[weapon.levels.Count - 1].level)
-                {
-                    tempWeaponList.Add(weapon);
-                }
+                selectableWeapons.Add(entry);
             }
         }
 
-        // Randomisasi senjata untuk ditampilkan
         for (int i = 0; i < weaponButtons.Length; i++)
         {
-            if (tempWeaponList.Count == 0)
+            if (selectableWeapons.Count == 0)
             {
-                Debug.LogWarning("Tidak ada senjata yang tersedia untuk ditampilkan!");
-                break;
+                weaponButtons[i].button.interactable = false;
+                weaponButtons[i].weaponName.text = "No Weapon";
+                weaponButtons[i].description.text = "";
+                continue;
             }
 
-            int randomIndex = Random.Range(0, tempWeaponList.Count);
-            SecondaryWeaponData weapon = tempWeaponList[randomIndex];
+            int randomIndex = Random.Range(0, selectableWeapons.Count);
+            WeaponEntry entry = selectableWeapons[randomIndex];
 
-            // Tampilkan senjata ke UI
-            weaponButtons[i].Icon.sprite = weapon.imageIcon;
+            // Next level info
+            int nextLevel = entry.currentLevel;
+            WeaponLevelData nextLevelData = entry.weaponData.levels[nextLevel];
 
-            // Tambahkan level senjata ke nama senjata
-            int currentLevelIndex = Mathf.Min(weapon.levels.Count - 1, 0);
-            weaponButtons[i].weaponName.text = $"{weapon.weaponName} (Level {weapon.levels[currentLevelIndex].level})";
+            weaponButtons[i].Icon.sprite = entry.weaponData.imageIcon;
+            weaponButtons[i].weaponName.text = $"{entry.weaponData.weaponName} ({nextLevelData.level})";
+            weaponButtons[i].description.text = nextLevelData.description;
 
-            // Perbarui deskripsi berdasarkan level saat ini
-            weaponButtons[i].description.text = weapon.levels[currentLevelIndex].description;
-
-            int index = i; // Simpan index untuk closure
             weaponButtons[i].button.onClick.RemoveAllListeners();
-            weaponButtons[i].button.onClick.AddListener(() => SelectWeapon(weapon));
+            weaponButtons[i].button.onClick.AddListener(() => SelectWeapon(entry));
 
-            // Hapus senjata dari list sementara
-            tempWeaponList.RemoveAt(randomIndex);
+            selectableWeapons.RemoveAt(randomIndex);
         }
     }
 
@@ -124,54 +105,25 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
         }
     }
 
-    void SelectWeapon(SecondaryWeaponData selectedWeapon)
+    void SelectWeapon(WeaponEntry entry)
     {
-        Debug.Log("Selected Weapon: " + selectedWeapon.weaponName);
+        // Aktifkan GameObject jika baru diambil (saat naik ke level 1)
+        if (entry.currentLevel == 0 && entry.weaponObject != null)
+            entry.weaponObject.SetActive(true);
 
-        // Jika senjata belum dipilih, tambahkan ke daftar senjata yang dipilih
-        if (!selectedWeapons.Contains(selectedWeapon))
-        {
-            selectedWeapons.Add(selectedWeapon);
+        // Upgrade level jika belum maksimal
+        if (entry.currentLevel < entry.weaponData.levels.Count)
+            entry.currentLevel++;
 
-            // Aktifkan GameObject senjata jika pertama kali diambil
-            foreach (GameObject weaponObject in weaponObjects)
-            {
-                if (weaponObject.name == selectedWeapon.weaponName)
-                {
-                    weaponObject.SetActive(true);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            // Jika senjata sudah dipilih sebelumnya, tingkatkan levelnya
-            Debug.Log("Upgrading Weapon: " + selectedWeapon.weaponName);
-        }
+        // Update deskripsi pada data utama
+        entry.weaponData.description = entry.weaponData.levels[entry.currentLevel - 1].description;
 
-        // Tingkatkan level senjata
-        int currentLevelIndex = selectedWeapon.levels.FindIndex(l => l.level == selectedWeapon.levels[selectedWeapon.levels.Count - 1].level);
-        if (currentLevelIndex < selectedWeapon.levels.Count - 1)
-        {
-            selectedWeapon.levels[currentLevelIndex + 1].level++;
-        }
-
-        // Perbarui deskripsi senjata berdasarkan level saat ini
-        int newLevelIndex = Mathf.Min(currentLevelIndex + 1, selectedWeapon.levels.Count - 1);
-        selectedWeapon.description = selectedWeapon.levels[newLevelIndex].description;
-
-        // Jika semua senjata sudah level maksimal, tampilkan buff selection
-        if (selectedWeapons.Count == 3 && AllWeaponsMaxLevel())
-        {
+        // Tampilkan pilihan berikutnya atau buff jika semua sudah max
+        if (AllWeaponsMaxLevel())
             DisplayBuffSelection();
-        }
         else
-        {
-            // Tampilkan pilihan senjata berikutnya
             DisplayRandomWeapons();
-        }
 
-        // Nonaktifkan UI Weapon Selection setelah senjata dipilih
         UIWeaponSelection.SetActive(false);
     }
 
@@ -188,10 +140,10 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
             case BuffType.Defense:
                 //selectionUI.playerData.defense += selectedBuff.value;
                 break;
-            case BuffType.Speed:
+            case BuffType.MoveSpeed:
                 selectionUI.playerData.speed += selectedBuff.value;
                 break;
-            case BuffType.Healing:
+            case BuffType.Regen:
                 //selectionUI.playerData.Heal(selectedBuff.value);
                 break;
             case BuffType.HP:
@@ -208,12 +160,10 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
 
     bool AllWeaponsMaxLevel()
     {
-        foreach (var weapon in selectedWeapons)
+        foreach (var entry in weaponEntries)
         {
-            if (weapon.levels[weapon.levels.Count - 1].level < weapon.levels.Count)
-            {
+            if (entry.currentLevel < entry.weaponData.levels.Count)
                 return false;
-            }
         }
         return true;
     }

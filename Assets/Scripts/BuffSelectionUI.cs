@@ -85,15 +85,32 @@ public class BuffSelectionUI : MonoBehaviour
                 playerData.attackDamage += Mathf.RoundToInt(playerData.baseAttackDamage * selectedBuff.value / 100f);
                 UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
                 Time.timeScale = 1; // Resume game setelah buff dipilih
+                bigFivePersonalityData.Extraversion += 2;
+                //bigFivePersonalityData.Openness += 1;
+                bigFivePersonalityData.Conscientiousness += 1;
+                bigFivePersonalityData.Agreeableness -= 1;
+                //bigFivePersonalityData.Neuroticism -= 2;
                 break;
-            case BuffType.Speed:
+            case BuffType.MoveSpeed:
                 playerData.speed += Mathf.RoundToInt(playerData.baseSpeed * selectedBuff.value / 100f);
                 UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
                 Time.timeScale = 1; // Resume game setelah buff dipilih
+                bigFivePersonalityData.Extraversion -= 1;
+                //bigFivePersonalityData.Openness += 1;
+                bigFivePersonalityData.Conscientiousness += 2;
+                bigFivePersonalityData.Agreeableness += 2;
+                bigFivePersonalityData.Neuroticism += 2;
                 break;
-            // case BuffType.Healing:
-            //     playerData.health = Mathf.Min(playerData.maxHealth, playerData.health + selectedBuff.value);
-            //     break;
+            case BuffType.Regen:
+                playerData.regen += Mathf.RoundToInt(playerData.baseRegen * selectedBuff.value / 100f);
+                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
+                Time.timeScale = 1; // Resume game setelah buff dipilih
+                bigFivePersonalityData.Extraversion += 3;
+                bigFivePersonalityData.Openness += 2;
+                //bigFivePersonalityData.Conscientiousness += 2;
+                bigFivePersonalityData.Agreeableness -= 2;
+                bigFivePersonalityData.Neuroticism -= 2;
+                break;
             case BuffType.HP:
                 playerData.maxHP += Mathf.RoundToInt(playerData.baseHP * selectedBuff.value / 100f);
                 playerData.currentHP = playerData.maxHP; // Set HP saat ini ke max HP setelah buff
@@ -114,6 +131,18 @@ public class BuffSelectionUI : MonoBehaviour
                 bigFivePersonalityData.Neuroticism += 1;
                 bigFivePersonalityData.Openness += 1;
                 Time.timeScale = 1; // Resume game setelah buff dipilih
+                break;
+            case BuffType.AtkSpeed:
+                playerData.attackSpeed -= playerData.baseAttackSpeed * (selectedBuff.value / 100f);
+                if (playerData.attackSpeed < 0.05f) // Batas minimum agar tidak negatif/terlalu kecil
+                    playerData.attackSpeed = 0.05f;
+                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
+                Time.timeScale = 1; // Resume game setelah buff dipilih
+                bigFivePersonalityData.Extraversion += 3;
+                bigFivePersonalityData.Openness += 1;
+                //bigFivePersonalityData.Conscientiousness += 1;
+                bigFivePersonalityData.Agreeableness -= 2;
+                bigFivePersonalityData.Neuroticism -= 1;
                 break;
             default:
                 Debug.LogWarning("Buff type not handled: " + selectedBuff.buffType);

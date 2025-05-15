@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 3
   damageMultiplier: 2
-  cooldownReduction: 0
+  cooldownReduction: 3
   description: Damage api meningkat 2x

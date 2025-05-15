@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: TreailOfFireData
   m_EditorClassIdentifier: 
   weaponName: Trail Of Fire
-  description: 'Sebuah pedang menyala yang memancarkan api magis.                              
-    Kemampuan Khusus: Akan meninggalkan bekas api di jejak player dan memberikan
-    damage ke enemy'
+  description: 'Sebuah pedang menyala yang memancarkan api magis. Kemampuan Khusus:
+    Akan meninggalkan bekas api di jejak player dan memberikan damage ke enemy'
   imageIcon: {fileID: 21300000, guid: 1c76e3bdb125e3d45bd32b0a25f50d36, type: 3}
   baseDamage: 2
   baseCooldown: 0

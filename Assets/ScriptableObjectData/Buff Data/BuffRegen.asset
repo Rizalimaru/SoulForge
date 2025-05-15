@@ -15,5 +15,5 @@ MonoBehaviour:
   buffName: Regeneration 5 HP/Second
   description: meningkatkan regenerasi HP
   icon: {fileID: 21300000, guid: bb3353c8186715848a59255ea7bb6937, type: 3}
-  buffType: 4
-  value: 5
+  buffType: 3
+  value: 10

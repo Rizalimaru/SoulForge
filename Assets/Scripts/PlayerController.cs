@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         playerData.knockbackForce = playerData.baseknockbackForce;
         playerData.regen = playerData.baseRegen;
         playerData.maxXP = playerData.baseMaxXP;
+        playerData.attackSpeed = playerData.baseAttackSpeed;
         playerData.level = 1;
     }
 

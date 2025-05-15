@@ -13,6 +13,7 @@ public class PlayerData : ScriptableObject
     public float maxHP;
     public float speed;
     public float attackDamage;
+    public float attackSpeed;
     public float pickRadius;
     public float armorPierce;
     public float maxXP;
@@ -23,6 +24,7 @@ public class PlayerData : ScriptableObject
     [Header("Base Stats")]
     public float baseHP;
     public float baseSpeed;
+    public float baseAttackSpeed;
     public float baseAttackDamage;
     public float basePickRadius;
     public float baseArmorPierce;

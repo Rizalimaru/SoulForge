@@ -8957,7 +8957,7 @@ MonoBehaviour:
   initialDelay: 1
   interval: 2
   DestroyDelay: 0.5
-  chanceToStrike: 1
+  chanceToStrike: 0.3
 --- !u!1 &572099907
 GameObject:
   m_ObjectHideFlags: 0
@@ -11449,7 +11449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &712132390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24428,7 +24428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 493402178}
-  delayAttack: 2
   circleOrigin: {fileID: 1547546982}
   circleRadius: 1
   playerData: {fileID: 11400000, guid: bab46b32c82197749bff9cbb654da393, type: 2}
@@ -30600,7 +30599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1930049327
 Transform:
   m_ObjectHideFlags: 0
@@ -32543,18 +32542,19 @@ MonoBehaviour:
     Icon: {fileID: 849544054}
     weaponName: {fileID: 1988130323}
     description: {fileID: 1202010894}
-  availableWeapons:
-  - {fileID: 11400000, guid: 2adc9f3860c24574cb7a22a9544ae7a2, type: 2}
-  - {fileID: 11400000, guid: d550e3fd6844cfc448b3a99833ad42e5, type: 2}
-  - {fileID: 11400000, guid: f6b3e2683dc4e574784028b17cd5a733, type: 2}
-  selectedWeapons: []
-  weaponObjects:
-  - {fileID: 1572196497}
-  - {fileID: 562511227}
-  - {fileID: 1930049326}
   UIWeaponSelection: {fileID: 2101153198}
   selectionUI: {fileID: 2097832404}
   secondaryWeaponSelectionUI: {fileID: 2101153198}
+  weaponEntries:
+  - weaponData: {fileID: 11400000, guid: f6b3e2683dc4e574784028b17cd5a733, type: 2}
+    weaponObject: {fileID: 1930049326}
+    currentLevel: 0
+  - weaponData: {fileID: 11400000, guid: d550e3fd6844cfc448b3a99833ad42e5, type: 2}
+    weaponObject: {fileID: 562511227}
+    currentLevel: 0
+  - weaponData: {fileID: 11400000, guid: 2adc9f3860c24574cb7a22a9544ae7a2, type: 2}
+    weaponObject: {fileID: 1572196497}
+    currentLevel: 0
 --- !u!4 &2030481028
 Transform:
   m_ObjectHideFlags: 0

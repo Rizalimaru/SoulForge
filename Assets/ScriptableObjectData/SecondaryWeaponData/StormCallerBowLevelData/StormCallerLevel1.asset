@@ -15,4 +15,6 @@ MonoBehaviour:
   level: 1
   damageMultiplier: 1.5
   cooldownReduction: 0
-  description: 
+  description: 'Busur yang memanggil petir setiap kali panah dilepaskan. Kemampuan
+    Khusus: Setiap serangan memiliki peluang 30% untuk memanggil sambaran petir yang
+    mengenai musuh lain di sekitar.'

@@ -8,7 +8,6 @@ public class Sword : MonoBehaviour
 {   
     public Vector2 PointerPosition { get; set; }
     public Animator animator;
-    public float delayAttack;
     private bool attackBlock;
     public Transform circleOrigin;
     public float circleRadius;
@@ -43,7 +42,7 @@ public class Sword : MonoBehaviour
 
     private IEnumerator AttcakBlocked()
     {
-        yield return new WaitForSeconds(delayAttack);
+        yield return new WaitForSeconds(playerData.attackSpeed);
         attackBlock = false;
     }
 

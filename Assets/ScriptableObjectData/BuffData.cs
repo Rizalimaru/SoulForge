@@ -14,11 +14,9 @@ public enum BuffType
 {
     Attack,
     Defense,
-    Speed,
-    Healing,
+    MoveSpeed,
+    Regen,
     HP,
     pickRadius,
-
-
-
+    AtkSpeed,
 }

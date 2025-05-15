@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: BlightfangChakram
   m_EditorClassIdentifier: 
   weaponName: Blightfang Chakram
-  description: 
+  description: 'Cakram beracun yang melukai dan meracuni musuh.Kemampuan Khusus:
+    Memberikan kerusakan racun  musuh di sekitar player sebanyak 1% HP musuh setiap
+    detik.'
   imageIcon: {fileID: 21300000, guid: 7bf3163dc1fdd954881a6b9a4613733f, type: 3}
   baseDamage: 0
   baseCooldown: 0
