@@ -31,6 +31,10 @@ public class PlayerData : ScriptableObject
     public float baseknockbackForce;
     public float baseRegen;
     public float baseMaxXP;
+    
+    [Header("Coin And Score In Stage")]
+    public int coinInStage;
+    public int scoreInStage;
 
     [Header("Player Score and Currency")]
     public int score;

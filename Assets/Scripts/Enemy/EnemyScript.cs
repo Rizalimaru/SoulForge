@@ -53,7 +53,8 @@ public class EnemyScript : MonoBehaviour
         }
 
         if (HP <= 0)
-        {
+        {   
+            playerData.scoreInStage += Random.Range(1, 10); // Tambahkan score saat musuh mati
             DropItems(); // Panggil fungsi drop item saat musuh mati
             Destroy(gameObject);
         }

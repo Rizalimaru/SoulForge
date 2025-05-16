@@ -27,6 +27,7 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
     public BuffSelectionUI selectionUI;
     public GameObject secondaryWeaponSelectionUI;
     public List<WeaponEntry> weaponEntries; // Drag WeaponData dan GameObject di Inspector
+    public TritsData traitsData; // Data kepribadian
 
     void Start()
     {
