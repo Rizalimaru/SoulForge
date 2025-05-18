@@ -12,10 +12,11 @@ public class BuffSelectionUI : MonoBehaviour
         public Image icon;
         public Text title;
         public Text description;
+        public Text statSummary;
     }
 
-    public BuffButton[] buffButtons; // isi 4 data di inspector
-    public BuffData[] availableBuffs; // list buff yang mungkin ditampilkan
+    public BuffButton[] buffButtons; // Hanya isi 2 di inspector
+    public List<BuffPairData> buffPairs; // Drag semua pasangan buff di sini
     public PlayerData playerData;
     public TritsData bigFivePersonalityData;
 
@@ -29,9 +30,11 @@ public class BuffSelectionUI : MonoBehaviour
     [Header("UI")]
     public GameObject UIBuffSelection;
 
+    BuffPairData currentPair;
+
     void Start()
     {
-        DisplayRandomBuffs();
+        DisplayRandomBuffPair();
     }
 
     void Update()
@@ -43,113 +46,72 @@ public class BuffSelectionUI : MonoBehaviour
         pickRadiusData.text = playerData.pickRadius.ToString();
     }
 
-    public void DisplayRandomBuffs()
+    public void DisplayRandomBuffPair()
     {
-        // Buat list sementara yang bisa dimodifikasi tanpa merusak data asli
-        List<BuffData> tempBuffList = new List<BuffData>(availableBuffs);
+        if (buffPairs.Count == 0) return;
+
+        int randomIndex = Random.Range(0, buffPairs.Count);
+        currentPair = buffPairs[randomIndex];
+
+        BuffCardData[] cards = new BuffCardData[] { currentPair.buffA, currentPair.buffB };
 
         for (int i = 0; i < buffButtons.Length; i++)
         {
-            if (tempBuffList.Count == 0)
-            {
-                Debug.LogWarning("Tidak cukup buff unik untuk mengisi semua tombol!");
-                break;
-            }
+            BuffCardData selectedCard = cards[i];
+            buffButtons[i].icon.sprite = selectedCard.icon;
+            buffButtons[i].title.text = selectedCard.buffName;
+            buffButtons[i].description.text = selectedCard.description;
+            buffButtons[i].statSummary.text = selectedCard.statSummary;
 
-            // Pilih buff secara acak dari list sementara
-            int randomIndex = Random.Range(0, tempBuffList.Count);
-            BuffData buff = tempBuffList[randomIndex];
-
-            // Tampilkan ke UI
-            buffButtons[i].icon.sprite = buff.icon;
-            buffButtons[i].title.text = buff.buffName;
-            buffButtons[i].description.text = buff.description;
-
-            int index = i; // simpan index untuk closure
             buffButtons[i].button.onClick.RemoveAllListeners();
-            buffButtons[i].button.onClick.AddListener(() => SelectBuff(buff));
-
-            // Hapus buff yang sudah dipakai agar tidak terulang
-            tempBuffList.RemoveAt(randomIndex);
+            buffButtons[i].button.onClick.AddListener(() => SelectBuff(selectedCard));
         }
     }
 
-    void SelectBuff(BuffData selectedBuff)
+    void SelectBuff(BuffCardData selectedBuff)
     {
-        Debug.Log("Selected Buff: " + selectedBuff.buffName);
-        
-        // Tambahkan efek buff ke PlayerData berdasarkan jenis buff
-        switch (selectedBuff.buffType)
+        // Terapkan efek stat
+        foreach (var effect in selectedBuff.effects)
         {
-            case BuffType.Attack:
-                playerData.attackDamage += Mathf.RoundToInt(playerData.baseAttackDamage * selectedBuff.value / 100f);
-                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
-                Time.timeScale = 1; // Resume game setelah buff dipilih
-                bigFivePersonalityData.Extraversion += 2;
-                //bigFivePersonalityData.Openness += 1;
-                bigFivePersonalityData.Conscientiousness += 1;
-                bigFivePersonalityData.Agreeableness -= 1;
-                //bigFivePersonalityData.Neuroticism -= 2;
-                break;
-            case BuffType.MoveSpeed:
-                playerData.speed += Mathf.RoundToInt(playerData.baseSpeed * selectedBuff.value / 100f);
-                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
-                Time.timeScale = 1; // Resume game setelah buff dipilih
-                bigFivePersonalityData.Extraversion += 3;
-                bigFivePersonalityData.Openness += 2;
-                //bigFivePersonalityData.Conscientiousness += 2;
-                bigFivePersonalityData.Agreeableness -= 2;
-                //bigFivePersonalityData.Neuroticism += 2;
-                break;
-            case BuffType.Regen:
-                playerData.regen += Mathf.RoundToInt(playerData.baseRegen * selectedBuff.value / 100f);
-                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
-                Time.timeScale = 1; // Resume game setelah buff dipilih
-                bigFivePersonalityData.Extraversion -= 1;
-                //bigFivePersonalityData.Openness += 3;
-                bigFivePersonalityData.Conscientiousness += 3;
-                bigFivePersonalityData.Agreeableness += 2;
-                bigFivePersonalityData.Neuroticism += 2;
-                break;
-            case BuffType.HP:
-                playerData.maxHP += Mathf.RoundToInt(playerData.baseHP * selectedBuff.value / 100f);
-                playerData.currentHP = playerData.maxHP; // Set HP saat ini ke max HP setelah buff
-                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
-                bigFivePersonalityData.Extraversion -= 2;
-                bigFivePersonalityData.Conscientiousness +=3;
-                bigFivePersonalityData.Agreeableness += 1;
-                bigFivePersonalityData.Neuroticism += 3;
-                //bigFivePersonalityData.Openness += 0;
-                Time.timeScale = 1; // Resume game setelah buff dipilih
-                break;
-            case BuffType.pickRadius:
-                playerData.pickRadius += selectedBuff.value;
-                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
-                bigFivePersonalityData.Extraversion -= 1;
-                bigFivePersonalityData.Conscientiousness += 2;
-                bigFivePersonalityData.Agreeableness += 1;
-                bigFivePersonalityData.Neuroticism += 1;
-                bigFivePersonalityData.Openness += 1;
-                Time.timeScale = 1; // Resume game setelah buff dipilih
-                break;
-            case BuffType.AtkSpeed:
-                playerData.attackSpeed -= playerData.baseAttackSpeed * (selectedBuff.value / 100f);
-                if (playerData.attackSpeed < 0.05f) // Batas minimum agar tidak negatif/terlalu kecil
-                    playerData.attackSpeed = 0.05f;
-                UIBuffSelection.SetActive(false); // Menyembunyikan UI Buff Selection
-                Time.timeScale = 1; // Resume game setelah buff dipilih
-                bigFivePersonalityData.Extraversion += 3;
-                bigFivePersonalityData.Openness += 1;
-                bigFivePersonalityData.Conscientiousness -= 1;
-                bigFivePersonalityData.Agreeableness -= 2;
-                bigFivePersonalityData.Neuroticism -= 1;
-                break;
-            default:
-                Debug.LogWarning("Buff type not handled: " + selectedBuff.buffType);
-                break;
+            switch (effect.statType)
+            {
+                case BuffStatType.Attack:
+                    playerData.attackDamage += Mathf.RoundToInt(playerData.baseAttackDamage * effect.value / 100f);
+                    break;
+                case BuffStatType.Defense:
+                    //playerData.defense += Mathf.RoundToInt(playerData.baseDefense * effect.value / 100f);
+                    break;
+                case BuffStatType.AttackSpeed:
+                    playerData.attackSpeed -= playerData.baseAttackSpeed * (effect.value / 100f);
+                    if (playerData.attackSpeed < 0.05f) playerData.attackSpeed = 0.05f;
+                    break;
+                case BuffStatType.Regen:
+                    playerData.regen += Mathf.RoundToInt(playerData.baseRegen * effect.value / 100f);
+                    break;
+                case BuffStatType.HP:
+                    playerData.maxHP += Mathf.RoundToInt(playerData.baseHP * effect.value / 100f);
+                    playerData.currentHP = playerData.maxHP;
+                    break;
+                case BuffStatType.PickRadius:
+                    playerData.pickRadius += effect.value;
+                    break;
+            }
         }
 
-        // Tambahkan log untuk memverifikasi perubahan
-        Debug.Log("Player Data Updated: " + playerData);
+        // Terapkan efek trait
+        foreach (var trait in selectedBuff.traitEffects)
+        {
+            switch (trait.traitType)
+            {
+                case TraitType.Extraversion: bigFivePersonalityData.Extraversion += trait.value; break;
+                case TraitType.Conscientiousness: bigFivePersonalityData.Conscientiousness += trait.value; break;
+                case TraitType.Agreeableness: bigFivePersonalityData.Agreeableness += trait.value; break;
+                case TraitType.Neuroticism: bigFivePersonalityData.Neuroticism += trait.value; break;
+                case TraitType.Openness: bigFivePersonalityData.Openness += trait.value; break;
+            }
         }
+
+        UIBuffSelection.SetActive(false);
+        Time.timeScale = 1;
+    }
 }

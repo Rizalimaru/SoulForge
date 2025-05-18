@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0fd25ea87e37f49bbb3da338fbea89, type: 3}
   m_Name: Trits Data
   m_EditorClassIdentifier: 
-  Extraversion: 0
+  Extraversion: -1
   Agreeableness: 0
-  Conscientiousness: 0
-  Neuroticism: 0
-  Openness: 0
+  Conscientiousness: 6
+  Neuroticism: 1
+  Openness: 8

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ef75b79f75a8b49b13e3b633c0e1bd, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  currentHP: 2
+  currentHP: 100
   currnetXP: 0
   currentSpeed: 5
   maxHP: 100
   speed: 10
   attackDamage: 5
-  attackSpeed: 1.7
+  attackSpeed: 2
   pickRadius: 2
   armorPierce: 0
-  maxXP: 900
-  level: 3
+  maxXP: 2500
+  level: 5
   knockbackForce: 2
   regen: 2
   baseHP: 100

@@ -36,7 +36,7 @@ public class ExpLevelManager : MonoBehaviour
         playerData.level += 1;
         playerData.maxXP = 100 * (playerData.level * playerData.level);
         Time.timeScale = 0;
-        buffSelectionUI.DisplayRandomBuffs(); // Tampilkan buff baru
+        buffSelectionUI.DisplayRandomBuffPair(); // Tampilkan buff baru
         UIBuffSelection.SetActive(true);
 
     }

@@ -63,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
             // Hentikan waktu dan tampilkan UI untuk secondary weapon selection
             Time.timeScale = 0;
             secondaryWeaponSelectionUI.SetActive(true);
-            secondaryWeaponSelectionUIManager.DisplayRandomWeapons(); // Tampilkan senjata secara acak
+            //secondaryWeaponSelectionUIManager.DisplayRandomWeapons(); // Tampilkan senjata secara acak
 
             // Tunggu hingga pemain menutup UI (misalnya, dengan tombol konfirmasi)
             while (secondaryWeaponSelectionUI.activeSelf)
