@@ -34,9 +34,7 @@ MonoBehaviour:
       mengakhiri"
     icon: {fileID: 21300000, guid: cdf6f033eef259442bfea0bd9df540a4, type: 3}
     statSummary: +20% Damage ke musuh <30% HP
-    effects:
-    - statType: 0
-      value: 20
+    effects: []
     traitEffects:
     - traitType: 0
       value: 3

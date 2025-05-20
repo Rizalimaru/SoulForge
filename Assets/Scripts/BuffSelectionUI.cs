@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class BuffSelectionUI : MonoBehaviour
         public Text statSummary;
     }
 
+
     public BuffButton[] buffButtons; // Hanya isi 2 di inspector
     public List<BuffPairData> buffPairs; // Drag semua pasangan buff di sini
     public PlayerData playerData;
@@ -29,6 +31,9 @@ public class BuffSelectionUI : MonoBehaviour
 
     [Header("UI")]
     public GameObject UIBuffSelection;
+
+    [Header("Object Buff")]
+    public List<GameObject> pairbuffObjects;
 
     BuffPairData currentPair;
 
@@ -123,17 +128,26 @@ public class BuffSelectionUI : MonoBehaviour
         // === Tempat untuk efek khusus berdasarkan nama buff atau tipe buff ===
         switch (selectedBuff.buffName)
         {
-            case "Bloodrush Instinct":
-                // Contoh: efek khusus untuk buff ini
-                // Misal: Aktifkan mode rage selama 10 detik
-                // StartCoroutine(ActivateRageMode(10f));
-                break;
+
             case "Mind Lock":
-                // Contoh: efek khusus untuk buff ini
-                // Misal: Tambahkan listener untuk attack speed saat diam
-                // StartCoroutine(EnableAttackSpeedWhileIdle(2f, 15f));
+                pairbuffObjects[0].SetActive(true);
                 break;
-            // Tambahkan case lain sesuai kebutuhan
+            case "Predator’s Edge":
+                pairbuffObjects[1].SetActive(true);
+                break;
+            case "Clockwork Routine":
+                pairbuffObjects[2].SetActive(true);
+                break;
+            case "Fractured Nerves":
+                pairbuffObjects[3].SetActive(true);
+                break;
+            case "Phantom Ally":
+                pairbuffObjects[4].SetActive(true);
+                break;
+            case "Lone Fang":
+                pairbuffObjects[5].SetActive(true);
+                break;
+            
         }
         // === Akhir efek khusus ===
 

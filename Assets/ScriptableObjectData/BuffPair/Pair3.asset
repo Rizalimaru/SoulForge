@@ -33,9 +33,7 @@ MonoBehaviour:
     description: Kau hidup dalam pola. Tidak ada kejutan, hanya ketepatan
     icon: {fileID: 21300000, guid: 61b2c561bcc39e549a600ed62642aec5, type: 3}
     statSummary: +10% Attack jika tidak bergerak selama 3 detik
-    effects:
-    - statType: 0
-      value: 10
+    effects: []
     traitEffects:
     - traitType: 1
       value: 3
