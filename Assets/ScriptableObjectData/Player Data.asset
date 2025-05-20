@@ -21,8 +21,8 @@ MonoBehaviour:
   attackSpeed: 2
   pickRadius: 2
   armorPierce: 0
-  maxXP: 2500
-  level: 5
+  maxXP: 900
+  level: 3
   knockbackForce: 2
   regen: 2
   baseHP: 100

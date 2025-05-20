@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private Vector2 movementInput, movementUse, pointerInput;
+    [HideInInspector] public Vector2 movementInput, movementUse, pointerInput;
     [SerializeField]
     private InputActionReference movement, attack, pointerPosition;
     private Sword sword;

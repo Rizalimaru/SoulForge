@@ -18,7 +18,11 @@ MonoBehaviour:
       cepat, tapi tidak sempat berpikir.
     icon: {fileID: 21300000, guid: 0d973f930966bf74f8dbd5ffc73146a4, type: 3}
     statSummary: +25% Attack, -30% Defense
-    effects: []
+    effects:
+    - statType: 0
+      value: 25
+    - statType: 1
+      value: -30
     traitEffects:
     - traitType: 0
       value: 3
@@ -31,8 +35,10 @@ MonoBehaviour:
     description: "Fokus membekukan jiwamu. Gerakanmu tidak gegabah \u2014 namun kau
       tak bisa menanggapi perubahan secara spontan"
     icon: {fileID: 21300000, guid: 8f1b25464aecada4180ad41ac607c96b, type: 3}
-    statSummary: +15% Attack Speed hanya saat tidak bergerak selama 2 detik
-    effects: []
+    statSummary: +15% Attack Speed ketika tidak bergerak selama 2 detik.
+    effects:
+    - statType: 2
+      value: 15
     traitEffects:
     - traitType: 1
       value: 2

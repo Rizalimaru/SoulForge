@@ -55,14 +55,22 @@ public class Sword : MonoBehaviour
 
     public void DetectColliders()
     {
+        PredatorEdge predatorEdge = GetComponent<PredatorEdge>(); // Ambil komponen jika ada
+
         foreach(Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, circleRadius))
         {
             Debug.Log(collider.name);
             EnemyScript enemy = collider.GetComponent<EnemyScript>();
             if (enemy != null)
             {
+                float damage = playerData.attackDamage;
+                if (predatorEdge != null)
+                {
+                    damage = predatorEdge.GetModifiedDamage(enemy);
+                }
+
                 // Kurangi HP skeleton
-                enemy.HP -= playerData.attackDamage;
+                enemy.HP -= damage;
                 
                 Vector2 knockbackDirection = (enemy.transform.position - transform.position).normalized;
                 enemy.ApplyKnockback(knockbackDirection);

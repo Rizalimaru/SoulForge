@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb41e2bef1239354798baadd4ef0e34f, type: 3}
+  m_Name: Pair6
+  m_EditorClassIdentifier: 
+  buffA:
+    buffName: Tactical Grid
+    description: Kau membagi pertempuran dalam kotak-kotak logika. Tapi logika tak
+      bisa menangani semua kekacauan
+    icon: {fileID: 21300000, guid: 2b01ff2a8d6723b4eaec48b785c1effa, type: 3}
+    statSummary: 'Stat: +5% Damage dan +5% Defense saat posisi tetap selama 5 detik'
+    effects:
+    - statType: 0
+      value: 5
+    - statType: 1
+      value: 5
+    traitEffects:
+    - traitType: 1
+      value: 3
+    - traitType: 4
+      value: -1
+  buffB:
+    buffName: Chaos Pulse
+    description: Kau tumbuh dari kekacauan. Semakin gila medan, semakin hidup kau
+    icon: {fileID: 21300000, guid: 2a9a798d210e369469ef11201d5eefc4, type: 3}
+    statSummary: 'Stat: +10% Damage saat musuh aktif menyerang'
+    effects:
+    - statType: 0
+      value: 10
+    traitEffects:
+    - traitType: 4
+      value: 3
+    - traitType: 0
+      value: 1
+    - traitType: 1
+      value: -2

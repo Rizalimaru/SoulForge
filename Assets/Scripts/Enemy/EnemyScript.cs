@@ -113,6 +113,15 @@ public class EnemyScript : MonoBehaviour
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageInterval)
             {
+                // Cek kemungkinan miss dari FracturedNerves
+                FracturedNerves fracturedNerves = collision.gameObject.GetComponent<FracturedNerves>();
+                if (fracturedNerves != null && fracturedNerves.IsMiss())
+                {
+                    Debug.Log("Enemy attack missed due to Fractured Nerves!");
+                    damageTimer = 0f; // Tetap reset timer walau miss
+                    return;
+                }
+
                 playerData.currentHP -= enemyData.damage; // Kurangi HP player
                 damageTimer = 0f; // Reset timer
             }

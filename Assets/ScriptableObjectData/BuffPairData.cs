@@ -35,6 +35,7 @@ public enum BuffStatType
     Regen,
     HP,
     PickRadius,
+    moveSpeed,
     // Tambahkan stat lain jika perlu
 }
 

@@ -32,6 +32,10 @@ public class BuffSelectionUI : MonoBehaviour
 
     BuffPairData currentPair;
 
+    private int nextPairIndex = 0;
+    private bool allPairsShown = false;
+    private List<int> shownPairIndices = new List<int>();
+
     void Start()
     {
         DisplayRandomBuffPair();
@@ -50,8 +54,26 @@ public class BuffSelectionUI : MonoBehaviour
     {
         if (buffPairs.Count == 0) return;
 
-        int randomIndex = Random.Range(0, buffPairs.Count);
-        currentPair = buffPairs[randomIndex];
+        int pairIndex;
+
+        // Jika semua pair belum pernah ditampilkan, tampilkan berurutan
+        if (!allPairsShown)
+        {
+            pairIndex = nextPairIndex;
+            shownPairIndices.Add(pairIndex);
+            nextPairIndex++;
+
+            // Jika sudah semua, set flag agar berikutnya random
+            if (nextPairIndex >= buffPairs.Count)
+                allPairsShown = true;
+        }
+        else
+        {
+            // Setelah semua pernah muncul, random dari seluruh pair
+            pairIndex = Random.Range(0, buffPairs.Count);
+        }
+
+        currentPair = buffPairs[pairIndex];
 
         BuffCardData[] cards = new BuffCardData[] { currentPair.buffA, currentPair.buffB };
 
@@ -70,7 +92,7 @@ public class BuffSelectionUI : MonoBehaviour
 
     void SelectBuff(BuffCardData selectedBuff)
     {
-        // Terapkan efek stat
+        // Terapkan efek stat umum
         foreach (var effect in selectedBuff.effects)
         {
             switch (effect.statType)
@@ -97,6 +119,23 @@ public class BuffSelectionUI : MonoBehaviour
                     break;
             }
         }
+
+        // === Tempat untuk efek khusus berdasarkan nama buff atau tipe buff ===
+        switch (selectedBuff.buffName)
+        {
+            case "Bloodrush Instinct":
+                // Contoh: efek khusus untuk buff ini
+                // Misal: Aktifkan mode rage selama 10 detik
+                // StartCoroutine(ActivateRageMode(10f));
+                break;
+            case "Mind Lock":
+                // Contoh: efek khusus untuk buff ini
+                // Misal: Tambahkan listener untuk attack speed saat diam
+                // StartCoroutine(EnableAttackSpeedWhileIdle(2f, 15f));
+                break;
+            // Tambahkan case lain sesuai kebutuhan
+        }
+        // === Akhir efek khusus ===
 
         // Terapkan efek trait
         foreach (var trait in selectedBuff.traitEffects)

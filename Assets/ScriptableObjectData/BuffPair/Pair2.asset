@@ -18,13 +18,29 @@ MonoBehaviour:
       luka demi memahami rasa sakit
     icon: {fileID: 21300000, guid: 7ecd18d5418794e429b0788e8c1da6d2, type: 3}
     statSummary: +3 HP/s regen saat berada di area berbahaya
-    effects: []
-    traitEffects: []
+    effects:
+    - statType: 3
+      value: 3
+    traitEffects:
+    - traitType: 2
+      value: 3
+    - traitType: 3
+      value: 2
+    - traitType: 1
+      value: -1
   buffB:
     buffName: "Predator\u2019s Edge"
     description: "Kau lebih kuat saat lawan lemah. Kau tidak membantu \u2014 kau
       mengakhiri"
     icon: {fileID: 21300000, guid: cdf6f033eef259442bfea0bd9df540a4, type: 3}
     statSummary: +20% Damage ke musuh <30% HP
-    effects: []
-    traitEffects: []
+    effects:
+    - statType: 0
+      value: 20
+    traitEffects:
+    - traitType: 0
+      value: 3
+    - traitType: 2
+      value: -2
+    - traitType: 4
+      value: 1
