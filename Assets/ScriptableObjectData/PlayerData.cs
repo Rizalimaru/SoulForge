@@ -40,4 +40,7 @@ public class PlayerData : ScriptableObject
     public int score;
     public int coin;
 
+    [Header("Shop Upgrade Progress")]
+    public int[] shopUpgradeLevels = new int[6]; // 6 stat, simpan level upgrade tiap stat
+
 }

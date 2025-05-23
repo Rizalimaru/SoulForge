@@ -10,6 +10,8 @@ public class ResultGameOverManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TritsData traitsData;
     public TextMeshProUGUI feedbackText;
+    public GameSessionResult sessionResult;
+    public TimeElapse timeElapse; // Drag komponen TimeElapse ke sini di Inspector
 
 
     void Update()
@@ -24,6 +26,8 @@ public class ResultGameOverManager : MonoBehaviour
         resultPanel.SetActive(true);
         scoreText.text = playerData.scoreInStage.ToString();
         feedbackText.text = GetFeedback();
+        // Simpan hasil session
+        SaveSessionResult(timeElapse != null ? timeElapse.timeElapsed : 0f);
         Time.timeScale = 0; // Pause the game
     }
     
@@ -82,5 +86,12 @@ public class ResultGameOverManager : MonoBehaviour
         else return "Kamu mudah merasa tertekan, dan sering memilih buff pertahanan untuk menghindari risiko langsung.";
     }
 
-
+    void SaveSessionResult(float timeElapsed)
+    {
+        sessionResult.SaveResult(
+            timeElapsed,
+            playerData.scoreInStage,
+            traitsData
+        );
+    }
 }

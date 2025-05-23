@@ -6,7 +6,7 @@ using TMPro;
 public class TimeElapse : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
-    float timeElapsed;
+    public float timeElapsed;
 
     void Update()
     {

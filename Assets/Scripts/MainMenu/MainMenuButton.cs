@@ -33,5 +33,10 @@ public class MainMenuButton : MonoBehaviour
         aniCamera.SetTrigger("recordToMainMenu");
     }
 
+    public void ExitButton()
+    {
+        Application.Quit();
+        Debug.Log("Exit");
+    }
 
 }
