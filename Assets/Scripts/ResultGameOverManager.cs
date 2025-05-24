@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ResultGameOverManager : MonoBehaviour
 {
@@ -86,6 +85,15 @@ public class ResultGameOverManager : MonoBehaviour
         else return "Kamu mudah merasa tertekan, dan sering memilih buff pertahanan untuk menghindari risiko langsung.";
     }
 
+    public void GoToMainMenu()
+    {
+        // Logika untuk kembali ke menu utama
+        Debug.Log("Kembali ke menu utama");
+        Time.timeScale = 1; // Resume the game time
+        resultPanel.SetActive(false); // Sembunyikan panel hasil
+        SaveSessionResult(timeElapse != null ? timeElapse.timeElapsed : 0f);
+        SceneManager.LoadScene("MainMenu"); // Ganti dengan nama scene menu utama yang sesuai
+    }
     void SaveSessionResult(float timeElapsed)
     {
         sessionResult.SaveResult(
