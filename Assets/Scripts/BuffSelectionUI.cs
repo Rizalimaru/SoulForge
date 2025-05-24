@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -16,9 +17,9 @@ public class BuffSelectionUI : MonoBehaviour
         public Text statSummary;
     }
 
-
     public BuffButton[] buffButtons; // Hanya isi 2 di inspector
     public List<BuffPairData> buffPairs; // Drag semua pasangan buff di sini
+    public List<BuffData> singleBuffs;   // Drag semua single buff di sini
     public PlayerData playerData;
     public TritsData bigFivePersonalityData;
 
@@ -36,10 +37,13 @@ public class BuffSelectionUI : MonoBehaviour
     public List<GameObject> pairbuffObjects;
 
     BuffPairData currentPair;
-
     private int nextPairIndex = 0;
     private bool allPairsShown = false;
     private List<int> shownPairIndices = new List<int>();
+
+    // Tambahan untuk single buff mode
+    private bool showingSingleBuff = false;
+    private BuffData[] currentSingleBuffs = new BuffData[2];
 
     void Start()
     {
@@ -57,6 +61,12 @@ public class BuffSelectionUI : MonoBehaviour
 
     public void DisplayRandomBuffPair()
     {
+        if (allPairsShown)
+        {
+            DisplayRandomSingleBuffs();
+            return;
+        }
+
         if (buffPairs.Count == 0) return;
 
         int pairIndex;
@@ -68,14 +78,14 @@ public class BuffSelectionUI : MonoBehaviour
             shownPairIndices.Add(pairIndex);
             nextPairIndex++;
 
-            // Jika sudah semua, set flag agar berikutnya random
+            // Jika sudah semua, set flag agar berikutnya single buff
             if (nextPairIndex >= buffPairs.Count)
                 allPairsShown = true;
         }
         else
         {
-            // Setelah semua pernah muncul, random dari seluruh pair
-            pairIndex = Random.Range(0, buffPairs.Count);
+            // Tidak akan masuk sini karena sudah dicek di atas
+            pairIndex = UnityEngine.Random.Range(0, buffPairs.Count);
         }
 
         currentPair = buffPairs[pairIndex];
@@ -93,6 +103,36 @@ public class BuffSelectionUI : MonoBehaviour
             buffButtons[i].button.onClick.RemoveAllListeners();
             buffButtons[i].button.onClick.AddListener(() => SelectBuff(selectedCard));
         }
+        showingSingleBuff = false;
+    }
+
+    // Tampilkan 2 buff random dari singleBuffs
+    void DisplayRandomSingleBuffs()
+    {
+        if (singleBuffs.Count < 2) return;
+
+        int idxA = UnityEngine.Random.Range(0, singleBuffs.Count);
+        int idxB;
+        do
+        {
+            idxB = UnityEngine.Random.Range(0, singleBuffs.Count);
+        } while (idxB == idxA);
+
+        currentSingleBuffs[0] = singleBuffs[idxA];
+        currentSingleBuffs[1] = singleBuffs[idxB];
+
+        for (int i = 0; i < buffButtons.Length; i++)
+        {
+            BuffData selectedBuff = currentSingleBuffs[i];
+            buffButtons[i].icon.sprite = selectedBuff.icon;
+            buffButtons[i].title.text = selectedBuff.buffName;
+            buffButtons[i].description.text = selectedBuff.description;
+            buffButtons[i].statSummary.text = ""; // Atur jika ingin ringkasan stat
+
+            buffButtons[i].button.onClick.RemoveAllListeners();
+            buffButtons[i].button.onClick.AddListener(() => SelectSingleBuff(selectedBuff));
+        }
+        showingSingleBuff = true;
     }
 
     void SelectBuff(BuffCardData selectedBuff)
@@ -128,7 +168,6 @@ public class BuffSelectionUI : MonoBehaviour
         // === Tempat untuk efek khusus berdasarkan nama buff atau tipe buff ===
         switch (selectedBuff.buffName)
         {
-
             case "Mind Lock":
                 pairbuffObjects[0].SetActive(true);
                 break;
@@ -147,7 +186,6 @@ public class BuffSelectionUI : MonoBehaviour
             case "Lone Fang":
                 pairbuffObjects[5].SetActive(true);
                 break;
-            
         }
         // === Akhir efek khusus ===
 
@@ -164,7 +202,67 @@ public class BuffSelectionUI : MonoBehaviour
             }
         }
 
+        // Setelah pilih, tampilkan buff berikutnya
+        if (!allPairsShown)
+            DisplayRandomBuffPair();
+        else
+            DisplayRandomSingleBuffs();
+
+        // Hide UI setelah memilih buff
         UIBuffSelection.SetActive(false);
-        Time.timeScale = 1;
+    }
+
+    // Untuk single buff
+    void SelectSingleBuff(BuffData selectedBuff)
+    {
+        // Terapkan efek stat
+        switch (selectedBuff.buffType)
+        {
+            case BuffType.Attack:
+                playerData.attackDamage += Mathf.RoundToInt(playerData.baseAttackDamage * selectedBuff.value / 100f);
+                break;
+            case BuffType.Defense:
+                //playerData.defense += selectedBuff.value;
+                break;
+            case BuffType.MoveSpeed:
+                playerData.speed += Mathf.RoundToInt(playerData.baseSpeed * selectedBuff.value / 100f);
+                break;
+            case BuffType.Regen:
+                playerData.regen += Mathf.RoundToInt(playerData.baseRegen * selectedBuff.value / 100f);
+                break;
+            case BuffType.HP:
+                playerData.maxHP += Mathf.RoundToInt(playerData.baseHP * selectedBuff.value / 100f);
+                playerData.currentHP = playerData.maxHP;
+                break;
+            case BuffType.pickRadius:
+                playerData.pickRadius += Mathf.RoundToInt(playerData.basePickRadius * selectedBuff.value / 100f);
+                break;
+            case BuffType.AtkSpeed:
+                playerData.attackSpeed -= selectedBuff.value;
+                if (playerData.attackSpeed < 0.05f) playerData.attackSpeed = 0.05f;
+                break;
+        }
+
+        // Terapkan efek trait
+        if (selectedBuff.traitEffects != null)
+        {
+            foreach (var trait in selectedBuff.traitEffects)
+            {
+                switch (trait.traitType)
+                {
+                    case TraitType.Extraversion: bigFivePersonalityData.Extraversion += trait.value; break;
+                    case TraitType.Conscientiousness: bigFivePersonalityData.Conscientiousness += trait.value; break;
+                    case TraitType.Agreeableness: bigFivePersonalityData.Agreeableness += trait.value; break;
+                    case TraitType.Neuroticism: bigFivePersonalityData.Neuroticism += trait.value; break;
+                    case TraitType.Openness: bigFivePersonalityData.Openness += trait.value; break;
+                }
+            }
+        }
+
+        // Setelah pilih, tampilkan buff single lagi
+        DisplayRandomSingleBuffs();
+
+        // Hide UI setelah memilih buff
+        UIBuffSelection.SetActive(false);
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   currnetXP: 0
   currentSpeed: 5
   maxHP: 100
-  speed: 10
+  speed: 13
   attackDamage: 5
   attackSpeed: 2
   pickRadius: 2
@@ -35,6 +35,7 @@ MonoBehaviour:
   baseRegen: 2
   baseMaxXP: 100
   coinInStage: 0
-  scoreInStage: 0
+  scoreInStage: 6
   score: 0
   coin: 479
+  shopUpgradeLevels: 000000000000000000000000000000000000000000000000

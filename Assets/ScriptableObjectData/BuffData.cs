@@ -8,6 +8,9 @@ public class BuffData : ScriptableObject
     public Sprite icon;
     public BuffType buffType;
     public int value;
+
+    // Tambahan: efek trait
+    public TraitEffect[] traitEffects;
 }
 
 public enum BuffType
@@ -19,4 +22,21 @@ public enum BuffType
     HP,
     pickRadius,
     AtkSpeed,
+}
+
+// Tambahkan struct dan enum trait seperti di BuffPairData
+[System.Serializable]
+public class TraitEffect1
+{
+    public TraitType1 traitType;
+    public int value;
+}
+
+public enum TraitType1
+{
+    Extraversion,
+    Conscientiousness,
+    Agreeableness,
+    Neuroticism,
+    Openness
 }
