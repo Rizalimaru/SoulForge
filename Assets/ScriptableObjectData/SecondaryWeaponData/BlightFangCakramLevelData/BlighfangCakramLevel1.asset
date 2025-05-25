@@ -15,4 +15,4 @@ MonoBehaviour:
   level: 1
   damageMultiplier: 0
   cooldownReduction: 0
-  description: 
+  description: Cakram beracun yang akan memberikan 3 damage per detik selama 5 detik.

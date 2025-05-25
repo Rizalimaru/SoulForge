@@ -25,6 +25,7 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
     public WeaponButton[] weaponButtons;
     public GameObject UIWeaponSelection;
     public BuffSelectionUI selectionUI;
+    public PauseUiManager pauseUiManager;
     public GameObject secondaryWeaponSelectionUI;
     public List<WeaponEntry> weaponEntries; // Drag WeaponData dan GameObject di Inspector
     public TritsData traitsData; // Data kepribadian
@@ -35,7 +36,8 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
     }
 
     public void DisplayRandomWeapons()
-    {
+    {   
+        pauseUiManager.canPause = false; // Nonaktifkan pause saat memilih senjata
         List<WeaponEntry> selectableWeapons = new List<WeaponEntry>();
 
         // Pilih senjata yang belum diambil (level 0) atau yang bisa di-upgrade
@@ -100,6 +102,7 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
         }
 
         UIWeaponSelection.SetActive(false);
+        pauseUiManager.canPause = true; // Aktifkan kembali pause setelah memilih senjata
     }
 
     bool AllWeaponsMaxLevel()

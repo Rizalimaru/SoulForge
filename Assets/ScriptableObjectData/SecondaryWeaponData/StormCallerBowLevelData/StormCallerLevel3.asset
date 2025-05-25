@@ -15,4 +15,4 @@ MonoBehaviour:
   level: 3
   damageMultiplier: 0
   cooldownReduction: 0
-  description: 
+  description: Damage petir mengingkat 1.5x

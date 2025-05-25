@@ -32,6 +32,7 @@ public class BuffSelectionUI : MonoBehaviour
 
     [Header("UI")]
     public GameObject UIBuffSelection;
+    public PauseUiManager pauseUiManager; // Optional: jika ingin kontrol pause state
 
     [Header("Object Buff")]
     public List<GameObject> pairbuffObjects;
@@ -61,6 +62,9 @@ public class BuffSelectionUI : MonoBehaviour
 
     public void DisplayRandomBuffPair()
     {
+        if (pauseUiManager != null)
+            pauseUiManager.canPause = false; // Tidak bisa pause saat memilih buff
+
         if (allPairsShown)
         {
             DisplayRandomSingleBuffs();
@@ -109,6 +113,9 @@ public class BuffSelectionUI : MonoBehaviour
     // Tampilkan 2 buff random dari singleBuffs
     void DisplayRandomSingleBuffs()
     {
+        if (pauseUiManager != null)
+            pauseUiManager.canPause = false; // Tidak bisa pause saat memilih buff
+
         if (singleBuffs.Count < 2) return;
 
         int idxA = UnityEngine.Random.Range(0, singleBuffs.Count);
@@ -136,7 +143,7 @@ public class BuffSelectionUI : MonoBehaviour
     }
 
     void SelectBuff(BuffCardData selectedBuff)
-    {
+    {   
         // Terapkan efek stat umum
         foreach (var effect in selectedBuff.effects)
         {
@@ -210,7 +217,10 @@ public class BuffSelectionUI : MonoBehaviour
 
         // Hide UI setelah memilih buff
         UIBuffSelection.SetActive(false);
-        Time.timeScale = 1f; // Pastikan game tidak pause
+        Time.timeScale = 1f;
+
+        if (pauseUiManager != null)
+            pauseUiManager.canPause = true; // Bisa pause lagi setelah memilih buff
     }
 
     // Untuk single buff
@@ -265,6 +275,9 @@ public class BuffSelectionUI : MonoBehaviour
 
         // Hide UI setelah memilih buff
         UIBuffSelection.SetActive(false);
-        Time.timeScale = 1f; // Pastikan game tidak pause
+        Time.timeScale = 1f;
+
+        if (pauseUiManager != null)
+            pauseUiManager.canPause = true; // Bisa pause lagi setelah memilih buff
     }
 }
