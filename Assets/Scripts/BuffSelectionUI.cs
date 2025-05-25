@@ -210,6 +210,7 @@ public class BuffSelectionUI : MonoBehaviour
 
         // Hide UI setelah memilih buff
         UIBuffSelection.SetActive(false);
+        Time.timeScale = 1f; // Pastikan game tidak pause
     }
 
     // Untuk single buff
@@ -264,5 +265,6 @@ public class BuffSelectionUI : MonoBehaviour
 
         // Hide UI setelah memilih buff
         UIBuffSelection.SetActive(false);
+        Time.timeScale = 1f; // Pastikan game tidak pause
     }
 }

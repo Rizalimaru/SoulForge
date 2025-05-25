@@ -30,7 +30,8 @@ public class ProjectileStaff : MonoBehaviour
 
     void Update()
     {
-        // Bergerak maju ke arah moveDirection
-        transform.position += (Vector3)(moveDirection * speed * Time.deltaTime);
+        //Debug.Log("moveDirection: " + moveDirection + " | Magnitude: " + moveDirection.magnitude);
+        Vector2 dir = moveDirection.normalized;
+        transform.position += (Vector3)(dir * speed * Time.deltaTime);
     }
 }

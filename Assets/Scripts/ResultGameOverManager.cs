@@ -19,6 +19,13 @@ public class ResultGameOverManager : MonoBehaviour
         {
             ShowResultPanel();
         }
+
+        //Reset Trait Data
+        traitsData.Extraversion = 0;
+        traitsData.Openness = 0;
+        traitsData.Conscientiousness = 0;
+        traitsData.Agreeableness = 0;
+        traitsData.Neuroticism = 0;
     }
     public void ShowResultPanel()
     {
