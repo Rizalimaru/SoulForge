@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   currentHP: 100
-  currnetXP: 0
+  currnetXP: 690
   currentSpeed: 5
   maxHP: 100
   speed: 13
-  attackDamage: 5
+  attackDamage: 6
   attackSpeed: 2
   pickRadius: 2
   armorPierce: 0
-  maxXP: 900
-  level: 3
+  maxXP: 1600
+  level: 4
   knockbackForce: 2
   regen: 2
   baseHP: 100
@@ -34,8 +34,8 @@ MonoBehaviour:
   baseknockbackForce: 2
   baseRegen: 2
   baseMaxXP: 100
-  coinInStage: 0
-  scoreInStage: 6
+  coinInStage: 35
+  scoreInStage: 102
   score: 0
-  coin: 479
+  coin: 0
   shopUpgradeLevels: 000000000000000000000000000000000000000000000000

@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 23485dfb67ecb2b488fe746e9212dfa5, type: 3}
   m_Name: PickRadius
-  m_EditorClassIdentifier: Assembly-CSharp::ShopUpgradeData
+  m_EditorClassIdentifier: 
   statType: 2
   icon: {fileID: 21300000, guid: 50bf66be0eb9a0c47b0a1c7124b7bf26, type: 3}
   levels:
   - price: 20
-    description: Menignkatkan 2% pick radius per level
+    description: Meningkatkan 2% Pick Radius Per Level.
     value: 2
   - price: 40
-    description: Menignkatkan 2% pick radius per level
+    description: Meningkatkan 2% Pick Radius Per Level.
     value: 2
   - price: 60
-    description: Menignkatkan 2% pick radius per level
+    description: Meningkatkan 2% Pick Radius Per Level.
     value: 2
   - price: 80
-    description: Menignkatkan 2% pick radius per level
+    description: Meningkatkan 2% Pick Radius Per Level.
     value: 2
   - price: 100
-    description: Menignkatkan 2% pick radius per level
+    description: Meningkatkan 2% Pick Radius Per Level.
     value: 2

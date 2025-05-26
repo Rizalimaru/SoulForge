@@ -48,7 +48,7 @@ public class BuffSelectionUI : MonoBehaviour
 
     void Start()
     {
-        DisplayRandomBuffPair();
+        //DisplayRandomBuffPair();
     }
 
     void Update()
@@ -208,6 +208,7 @@ public class BuffSelectionUI : MonoBehaviour
                 case TraitType.Openness: bigFivePersonalityData.Openness += trait.value; break;
             }
         }
+        Debug.Log($"Extraversion: {bigFivePersonalityData.Extraversion}, Conscientiousness: {bigFivePersonalityData.Conscientiousness}, ...");
 
         // Setelah pilih, tampilkan buff berikutnya
         if (!allPairsShown)

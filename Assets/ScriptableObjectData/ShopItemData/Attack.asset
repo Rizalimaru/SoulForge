@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23485dfb67ecb2b488fe746e9212dfa5, type: 3}
+  m_Name: Attack
+  m_EditorClassIdentifier: 
+  statType: 1
+  icon: {fileID: 21300000, guid: 980bc3868cbcd7241a2e99e8ba67295b, type: 3}
+  levels:
+  - price: 20
+    description: Meningkatkan 5% Attack Per Level.
+    value: 5
+  - price: 40
+    description: Meningkatkan 5% Attack Per Level.
+    value: 5
+  - price: 60
+    description: Meningkatkan 5% Attack Per Level.
+    value: 5
+  - price: 80
+    description: Meningkatkan 5% Attack Per Level.
+    value: 5
+  - price: 100
+    description: Meningkatkan 5% Attack Per Level.
+    value: 5

@@ -9,6 +9,7 @@ public class MainMenuButton : MonoBehaviour
     private Animator aniCamera;
     public GameObject descrptionButtonPanel;
     public TextMeshProUGUI descriptionText;
+    public TritsData traitsData;
 
     public string[] buttonDescriptions; // Isi di Inspector
     public Button[] menuButtons;        // Isi di Inspector
@@ -26,7 +27,10 @@ public class MainMenuButton : MonoBehaviour
 
             EventTrigger.Entry entryEnter = new EventTrigger.Entry();
             entryEnter.eventID = EventTriggerType.PointerEnter;
-            entryEnter.callback.AddListener((eventData) => ShowDescription(idx));
+            entryEnter.callback.AddListener((eventData) => {
+                ShowDescription(idx);
+                SoundManager.PlaySound(SoundType.BUTTON); // <-- Tambahkan ini
+            });
             trigger.triggers.Add(entryEnter);
 
             EventTrigger.Entry entryExit = new EventTrigger.Entry();
@@ -58,6 +62,12 @@ public class MainMenuButton : MonoBehaviour
 
     public void goToEndless()
     {
+        //Reset Data Traits
+        traitsData.Openness = 0;
+        traitsData.Conscientiousness = 0;
+        traitsData.Extraversion = 0;
+        traitsData.Agreeableness = 0;
+        traitsData.Neuroticism = 0;
         SceneManager.LoadScene("GameplayScene");
     }
 

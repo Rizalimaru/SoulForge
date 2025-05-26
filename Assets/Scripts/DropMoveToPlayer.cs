@@ -30,13 +30,16 @@ public class DropMoveToPlayer : MonoBehaviour
         }
         else if (this.CompareTag("exp"))
         {
-            playerData.currnetXP += 10; // Increase the player's XP
+            // Tambahkan XP sesuai multiplier dari EnemySpawner
+            int xpGain = Mathf.RoundToInt(10 * EnemySpawner.xpMultiplier);
+            playerData.currnetXP += xpGain;
         }
         else if (this.CompareTag("score"))
         {
             playerData.score += 1; // Increase the player's score
         }
         // Optionally, you can destroy the object after reaching the player
+        SoundManager.PlaySound(SoundType.COLLECTPOINT, 1); // Play the collect sound
         Destroy(gameObject);
 }
 }

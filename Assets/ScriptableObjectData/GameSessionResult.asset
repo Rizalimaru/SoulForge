@@ -12,25 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61efe6390e1208a468ef00147c16f248, type: 3}
   m_Name: GameSessionResult
   m_EditorClassIdentifier: 
-  sessionRecords:
-  - timeElapsed: 99
-    score: 99
-    extraversion: 99
-    openness: 99
-    conscientiousness: 99
-    agreeableness: 99
-    neuroticism: 99
-  - timeElapsed: 99
-    score: 99
-    extraversion: 99
-    openness: 99
-    conscientiousness: 99
-    agreeableness: 99
-    neuroticism: 99
-  - timeElapsed: 99
-    score: 99
-    extraversion: 99
-    openness: 99
-    conscientiousness: 99
-    agreeableness: 99
-    neuroticism: 99
+  sessionRecords: []

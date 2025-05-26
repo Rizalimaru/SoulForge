@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: HpRegen
-  m_EditorClassIdentifier: Assembly-CSharp::ShopUpgradeData
+  m_Script: {fileID: 11500000, guid: 23485dfb67ecb2b488fe746e9212dfa5, type: 3}
+  m_Name: HPRegen
+  m_EditorClassIdentifier: 
   statType: 4
   icon: {fileID: 21300000, guid: bb3353c8186715848a59255ea7bb6937, type: 3}
   levels:
   - price: 20
-    description: Meingkatkan 3% HP Regenerasi per level.
-    value: 3
+    description: Meningkatkan 2% HP Regen Per Level.
+    value: 2
   - price: 40
-    description: Meingkatkan 3% HP Regenerasi per level.
-    value: 3
+    description: Meningkatkan 2% HP Regen Per Level.
+    value: 2
   - price: 60
-    description: Meingkatkan 3% HP Regenerasi per level.
-    value: 3
+    description: Meningkatkan 2% HP Regen Per Level.
+    value: 2
   - price: 80
-    description: Meingkatkan 3% HP Regenerasi per level.
-    value: 3
+    description: Meningkatkan 2% HP Regen Per Level.
+    value: 2
   - price: 100
-    description: Meingkatkan 3% HP Regenerasi per level.
-    value: 3
+    description: Meningkatkan 2% HP Regen Per Level.
+    value: 2

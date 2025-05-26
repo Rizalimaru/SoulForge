@@ -7,8 +7,9 @@ public class EnemyScript : MonoBehaviour
     private Transform target;
     public Enemy_Data enemyData;
     private float speedReduction;
+    private SpriteRenderer spriteRenderer;
     public PlayerData playerData; // Referensi ke PlayerData
-    public float HP;
+    //public float HP;
     public float knockbackForce = 5f; // Kekuatan knockback
     public float knockbackDuration = 0.2f; // Durasi knockback
     private bool isKnockedBack = false;
@@ -25,12 +26,30 @@ public class EnemyScript : MonoBehaviour
     [Range(0f, 1f)]
     public float coinDropChance = 0.3f; // Peluang drop koin (30%)
 
+    public float speedInstance; // Speed yang dipakai di Update
+
+    private bool isBlinking = false;
+    private float _hp;
+    public float HP
+    {
+        get => _hp;
+        set
+        {
+            if (value < _hp) // Hanya jika HP berkurang
+            {
+                if (!isBlinking)
+                    StartCoroutine(getDamageAnimation());
+            }
+            _hp = value;
+        }
+    }
+
+
     void Start()
     {
-        HP = enemyData.HP;
-        speedReduction = enemyData.speedReduction;
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        rb = GetComponent<Rigidbody2D>(); // Ambil Rigidbody2D
+        // Jangan set HP dan speed di sini, gunakan InitStats saat spawn!
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -53,7 +72,7 @@ public class EnemyScript : MonoBehaviour
         }
 
         if (HP <= 0)
-        {   
+        {
             playerData.scoreInStage += Random.Range(1, 10); // Tambahkan score saat musuh mati
             DropItems(); // Panggil fungsi drop item saat musuh mati
             Destroy(gameObject);
@@ -136,4 +155,35 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    public void InitStats(float statMultiplier)
+    {
+        HP = enemyData.HP * statMultiplier;
+        speedReduction = enemyData.speedReduction;
+        // Jika ingin speed bertambah, gunakan field baru:
+        speedInstance = enemyData.speed * statMultiplier;
+    }
+
+    public IEnumerator getDamageAnimation()
+    {
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+        float blinkDuration = 0.5f;
+        float blinkInterval = 0.1f;
+        float timer = 0f;
+        bool transparent = false;
+
+        Color originalColor = spriteRenderer.color;
+        Color transparentColor = originalColor;
+        transparentColor.a = 0.3f; // Atur transparansi
+
+        while (timer < blinkDuration)
+        {
+            spriteRenderer.color = transparent ? transparentColor : originalColor;
+            transparent = !transparent;
+            yield return new WaitForSeconds(blinkInterval);
+            timer += blinkInterval;
+        }
+        spriteRenderer.color = originalColor; // Kembalikan warna semula
+    }
 }

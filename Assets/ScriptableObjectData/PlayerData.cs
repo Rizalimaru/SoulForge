@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Player Data", menuName = "ScriptableObject/Player Data")]
@@ -43,4 +44,36 @@ public class PlayerData : ScriptableObject
     [Header("Shop Upgrade Progress")]
     public int[] shopUpgradeLevels = new int[6]; // 6 stat, simpan level upgrade tiap stat
 
+    private static string SavePath => Path.Combine(Application.persistentDataPath, "playerdata.json");
+
+    [System.Serializable]
+    public class SaveStruct
+    {
+        public int coin;
+        public int score;
+        public int[] shopUpgradeLevels;
+        // Tambahkan field lain yang ingin disimpan
+    }
+
+    public void Save()
+    {
+        SaveStruct data = new SaveStruct
+        {
+            coin = this.coin,
+            score = this.score,
+            shopUpgradeLevels = (int[])this.shopUpgradeLevels.Clone()
+        };
+        File.WriteAllText(SavePath, JsonUtility.ToJson(data));
+    }
+
+    public void Load()
+    {
+        if (File.Exists(SavePath))
+        {
+            SaveStruct data = JsonUtility.FromJson<SaveStruct>(File.ReadAllText(SavePath));
+            this.coin = data.coin;
+            this.score = data.score;
+            this.shopUpgradeLevels = data.shopUpgradeLevels ?? new int[6];
+        }
+    }
 }

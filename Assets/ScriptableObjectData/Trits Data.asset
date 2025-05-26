@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Extraversion: 0
   Agreeableness: 3
-  Conscientiousness: 2
+  Conscientiousness: 5
   Neuroticism: 4
-  Openness: -1
+  Openness: -2

@@ -30,7 +30,9 @@ public class ShopUI : MonoBehaviour
     }
 
     void Start()
-    {   
+    {
+        Time.timeScale = 1f; // Pastikan waktu berjalan normal saat masuk scene shop
+
         coinText.text = playerData.coin.ToString();
         RefreshUI();
         for (int i = 0; i < shopButtons.Length; i++)

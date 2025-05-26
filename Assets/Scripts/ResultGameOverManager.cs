@@ -11,21 +11,16 @@ public class ResultGameOverManager : MonoBehaviour
     public TextMeshProUGUI feedbackText;
     public GameSessionResult sessionResult;
     public TimeElapse timeElapse; // Drag komponen TimeElapse ke sini di Inspector
+    private bool isGameOver = true;
 
 
     void Update()
     {
-        if (playerData.currentHP <= 0)
-        {
+        if (playerData.currentHP <= 0 && isGameOver)
+        {   
+            isGameOver = false; // Prevent multiple triggers
             ShowResultPanel();
         }
-
-        //Reset Trait Data
-        traitsData.Extraversion = 0;
-        traitsData.Openness = 0;
-        traitsData.Conscientiousness = 0;
-        traitsData.Agreeableness = 0;
-        traitsData.Neuroticism = 0;
     }
     public void ShowResultPanel()
     {
@@ -98,11 +93,12 @@ public class ResultGameOverManager : MonoBehaviour
         Debug.Log("Kembali ke menu utama");
         Time.timeScale = 1; // Resume the game time
         resultPanel.SetActive(false); // Sembunyikan panel hasil
-        SaveSessionResult(timeElapse != null ? timeElapse.timeElapsed : 0f);
         SceneManager.LoadScene("MainMenu"); // Ganti dengan nama scene menu utama yang sesuai
+        isGameOver = true; // Reset game over state
     }
     void SaveSessionResult(float timeElapsed)
-    {
+    {   
+
         sessionResult.SaveResult(
             timeElapsed,
             playerData.scoreInStage,
