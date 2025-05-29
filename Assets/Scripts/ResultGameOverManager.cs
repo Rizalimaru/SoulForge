@@ -12,6 +12,7 @@ public class ResultGameOverManager : MonoBehaviour
     public GameSessionResult sessionResult;
     public TimeElapse timeElapse; // Drag komponen TimeElapse ke sini di Inspector
     private bool isGameOver = true;
+    public GameObject gamePlayPanel;
 
 
     void Update()
@@ -23,7 +24,8 @@ public class ResultGameOverManager : MonoBehaviour
         }
     }
     public void ShowResultPanel()
-    {
+    {   
+        gamePlayPanel.SetActive(false);
         resultPanel.SetActive(true);
         scoreText.text = playerData.scoreInStage.ToString();
         feedbackText.text = GetFeedback();

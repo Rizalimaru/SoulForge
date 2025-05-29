@@ -16,7 +16,7 @@ public class Staff : MonoBehaviour
         if (shootTimer <= 0f)
         {
             ShootProjectile();
-            SoundManager.PlaySound(SoundType.WEAPONSTAFF, 1); // Mainkan suara serangan
+            SoundManager.PlaySound(SoundType.WEAPONSTAFF, 0.5f); // Mainkan suara serangan
             shootTimer = playerData.attackSpeed; // Reset timer sesuai attack speed
         }
     }

@@ -39,7 +39,7 @@ public class DropMoveToPlayer : MonoBehaviour
             playerData.score += 1; // Increase the player's score
         }
         // Optionally, you can destroy the object after reaching the player
-        SoundManager.PlaySound(SoundType.COLLECTPOINT, 1); // Play the collect sound
+        SoundManager.PlaySound(SoundType.COLLECTPOINT, 0.5f); // Play the collect sound
         Destroy(gameObject);
 }
 }

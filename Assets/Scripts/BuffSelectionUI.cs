@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -210,13 +211,7 @@ public class BuffSelectionUI : MonoBehaviour
         }
         Debug.Log($"Extraversion: {bigFivePersonalityData.Extraversion}, Conscientiousness: {bigFivePersonalityData.Conscientiousness}, ...");
 
-        // Setelah pilih, tampilkan buff berikutnya
-        if (!allPairsShown)
-            DisplayRandomBuffPair();
-        else
-            DisplayRandomSingleBuffs();
-
-        // Hide UI setelah memilih buff
+        // Setelah pilih, cukup tutup UI dan lanjutkan game
         UIBuffSelection.SetActive(false);
         Time.timeScale = 1f;
 
@@ -250,7 +245,7 @@ public class BuffSelectionUI : MonoBehaviour
                 playerData.pickRadius += Mathf.RoundToInt(playerData.basePickRadius * selectedBuff.value / 100f);
                 break;
             case BuffType.AtkSpeed:
-                playerData.attackSpeed -= selectedBuff.value;
+                playerData.attackSpeed -= playerData.baseAttackSpeed * (selectedBuff.value / 100f);
                 if (playerData.attackSpeed < 0.05f) playerData.attackSpeed = 0.05f;
                 break;
         }

@@ -7,10 +7,12 @@ public class HPUI_Manager : MonoBehaviour
 {
     public PlayerData playerData; // Referensi ke PlayerData
     public Image hpBar; // Referensi ke UI HP bar
+    public GameObject gamePlayPanel; // Referensi ke panel gameplay
 
     void Start()
     {
         StartCoroutine(RegenHP());
+        gamePlayPanel.SetActive(true); // Pastikan panel gameplay aktif saat mulai
     }
 
     void Update()

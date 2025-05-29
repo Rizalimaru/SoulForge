@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private InputActionReference movement, attack, pointerPosition;
     private Sword sword;
     public GameObject pickupRadiusObject;
+    public bool canMove = true;
 
     void Awake()
     {   

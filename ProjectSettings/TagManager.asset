@@ -8,6 +8,7 @@ TagManager:
   - PickRadius
   - coin
   - exp
+  - Death
   layers:
   - Default
   - TransparentFX

@@ -18,7 +18,13 @@ public class ExpLevelManager : MonoBehaviour
     }
     void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.Space))
+        
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            playerData.currnetXP += playerData.maxXP; // Tambah XP untuk testing
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             playerData.currnetXP += 10;
         }

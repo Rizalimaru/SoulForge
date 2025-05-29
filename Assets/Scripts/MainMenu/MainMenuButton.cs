@@ -29,7 +29,7 @@ public class MainMenuButton : MonoBehaviour
             entryEnter.eventID = EventTriggerType.PointerEnter;
             entryEnter.callback.AddListener((eventData) => {
                 ShowDescription(idx);
-                SoundManager.PlaySound(SoundType.BUTTON); // <-- Tambahkan ini
+                SoundManager.PlaySound(SoundType.BUTTON, 0.5f);
             });
             trigger.triggers.Add(entryEnter);
 
@@ -37,6 +37,9 @@ public class MainMenuButton : MonoBehaviour
             entryExit.eventID = EventTriggerType.PointerExit;
             entryExit.callback.AddListener((eventData) => ClearDescription());
             trigger.triggers.Add(entryExit);
+
+            // Tambahkan event click untuk play sound BUTTONCLICK
+            menuButtons[i].onClick.AddListener(() => SoundManager.PlaySound(SoundType.BUTTONCLICK, 1f));
         }
     }
 

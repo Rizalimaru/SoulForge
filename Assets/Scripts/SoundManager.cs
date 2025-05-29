@@ -8,6 +8,7 @@ public enum SoundType
     WEAPONSWORD,
     WEAPONSTAFF,
     COLLECTPOINT,
+    BUTTONCLICK,
 }
 
 [RequireComponent(typeof(AudioSource))]

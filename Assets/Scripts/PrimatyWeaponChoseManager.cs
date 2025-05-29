@@ -8,9 +8,15 @@ public class PrimatyWeaponChoseManager : MonoBehaviour
     public GameObject sword;
     public GameObject staff;
     public PauseUiManager pauseUiManager; // Optional: if you want to control pause state
+    public TutorialHandler tutorialHandler; // Optional: if you want to control tutorial state
 
 
     void Start()
+    {
+        StartSelection();
+    }
+
+    public void StartSelection()
     {
         primaryWeaponSelectionUI.SetActive(true);
         Time.timeScale = 0; // Pause the game
@@ -24,6 +30,10 @@ public class PrimatyWeaponChoseManager : MonoBehaviour
         staff.SetActive(false);
         Time.timeScale = 1; // Resume the game
         pauseUiManager.canPause = true; // Re-enable pause functionality if needed
+        if (tutorialHandler != null)
+        {
+            StartCoroutine(tutorialHandler.mulaiTutorial()); // Start the tutorial if applicable
+        }
     }
 
     public void SelectStaff()
@@ -33,5 +43,9 @@ public class PrimatyWeaponChoseManager : MonoBehaviour
         staff.SetActive(true);
         Time.timeScale = 1; // Resume the game
         pauseUiManager.canPause = true; // Re-enable pause functionality if needed
+        if (tutorialHandler != null)
+        {
+            StartCoroutine(tutorialHandler.mulaiTutorial()); // Start the tutorial if applicable
+        }
     }
 }

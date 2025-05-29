@@ -37,12 +37,18 @@ public class PlayerData : ScriptableObject
     public int coinInStage;
     public int scoreInStage;
 
+    [Header("Tutorial Data")]
+    public bool isTutorialCompleted = false; // Menyimpan status apakah tutorial sudah selesai
+    public bool isintroEndlessComplated = false; // Menyimpan status apakah intro endless sudah selesai
+
+
     [Header("Player Score and Currency")]
     public int score;
     public int coin;
 
     [Header("Shop Upgrade Progress")]
     public int[] shopUpgradeLevels = new int[6]; // 6 stat, simpan level upgrade tiap stat
+
 
     private static string SavePath => Path.Combine(Application.persistentDataPath, "playerdata.json");
 
