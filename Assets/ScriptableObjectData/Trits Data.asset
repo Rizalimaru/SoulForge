@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trits Data
   m_EditorClassIdentifier: 
   Extraversion: 0
-  Agreeableness: 3
-  Conscientiousness: 5
-  Neuroticism: 4
-  Openness: -2
+  Agreeableness: 0
+  Conscientiousness: 0
+  Neuroticism: 0
+  Openness: 0

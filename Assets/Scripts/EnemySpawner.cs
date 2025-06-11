@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -34,35 +35,45 @@ public class EnemySpawner : MonoBehaviour
     private int currentEnemyCount; // Jumlah musuh di gelombang saat ini
 
     public GameObject secondaryWeaponSelectionUI;
+    public GameObject primaryWeaponSelectionUI; // Tambahkan ini di atas (drag di Inspector)
     public SecondaryWeaponSelectionUI secondaryWeaponSelectionUIManager; // Referensi ke UI pemilihan senjata sekunder
+    public TextMeshProUGUI waveText;
 
-    
+    private Coroutine waveMessageCoroutine;
+
+
 
     void Start()
     {
         currentEnemyCount = initialEnemyCount; // Set jumlah musuh awal
         StartCoroutine(StartWaveSystem());
+        waveText.enabled = false;
     }
 
     IEnumerator StartWaveSystem()
     {
         while (true) // Loop tanpa batas untuk gelombang
         {
-            Debug.Log("Starting Wave: " + (currentWaveIndex + 1));
+            // Tampilkan pesan wave mulai
+            yield return WaitForOtherUI(); // Tunggu UI lain benar-benar hilang sebelum tampilkan pesan
 
-            // Buat gelombang baru
+            ShowWaveText($"Wave {currentWaveIndex + 1} mulai!", 2f);
+
+            Debug.Log("Starting Wave: " + (currentWaveIndex + 1));
             Wave currentWave = GenerateWave();
 
-            // Mulai spawn musuh untuk gelombang saat ini
             yield return StartCoroutine(SpawnWave(currentWave));
 
-            // Tunggu hingga semua musuh di gelombang ini dikalahkan
             while (!IsWaveComplete())
             {
-                yield return null; // Tunggu satu frame
+                yield return null;
             }
 
             Debug.Log("Wave " + (currentWaveIndex + 1) + " completed!");
+
+            // Tampilkan pesan wave selesai setelah UI lain ditutup
+            yield return WaitForOtherUI();
+            ShowWaveText($"Wave {currentWaveIndex + 1} selesai!", 2f);
 
             // Hentikan waktu dan tampilkan UI untuk secondary weapon selection
             Time.timeScale = 0;
@@ -71,19 +82,17 @@ public class EnemySpawner : MonoBehaviour
             // Tunggu hingga pemain menutup UI (misalnya, dengan tombol konfirmasi)
             while (secondaryWeaponSelectionUI.activeSelf)
             {
-                yield return null; // Tunggu satu frame
+                yield return null;
             }
 
             // Lanjutkan waktu setelah UI ditutup
             Time.timeScale = 1;
-
             // Tambahkan jumlah musuh untuk gelombang berikutnya
             currentEnemyCount = Mathf.CeilToInt(currentEnemyCount * (1 + enemyCountIncreaseRate));
             // Contoh: jika awal 10, rate 0.1, maka wave 2 = 11, wave 3 = 12, dst.
 
             // Set XP multiplier berdasarkan wave (misal naik 10% per wave)
             xpMultiplier = 1f + (currentWaveIndex * 0.1f);
-
             // Lanjutkan ke gelombang berikutnya
             currentWaveIndex++;
 
@@ -137,5 +146,32 @@ public class EnemySpawner : MonoBehaviour
     {
         // Periksa apakah semua musuh di gelombang saat ini sudah mati
         return isSpawning == false && GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
+    }
+
+    // Pastikan hanya satu pesan waveText yang tampil dalam satu waktu
+    void ShowWaveText(string message, float duration)
+    {
+        if (waveMessageCoroutine != null)
+            StopCoroutine(waveMessageCoroutine);
+        waveMessageCoroutine = StartCoroutine(ShowWaveMessage(message, duration));
+    }
+
+    IEnumerator ShowWaveMessage(string message, float duration)
+    {
+        waveText.text = message;
+        waveText.enabled = true;
+        yield return new WaitForSecondsRealtime(duration);
+        waveText.enabled = false;
+    }
+
+    // Tunggu hingga semua UI lain sudah tidak aktif sebelum menampilkan pesan wave
+    IEnumerator WaitForOtherUI()
+    {
+        // Tunggu hingga secondaryWeaponSelectionUI dan primaryWeaponSelectionUI sudah tidak aktif
+        while ((secondaryWeaponSelectionUI != null && secondaryWeaponSelectionUI.activeSelf)
+            || (primaryWeaponSelectionUI != null && primaryWeaponSelectionUI.activeSelf))
+        {
+            yield return null;
+        }
     }
 }

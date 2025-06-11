@@ -39,5 +39,5 @@ MonoBehaviour:
   isTutorialCompleted: 0
   isintroEndlessComplated: 0
   score: 0
-  coin: 341
+  coin: 0
   shopUpgradeLevels: 000000000000000000000000000000000000000000000000
