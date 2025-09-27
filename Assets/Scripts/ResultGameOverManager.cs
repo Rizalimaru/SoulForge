@@ -30,7 +30,6 @@ public class ResultGameOverManager : MonoBehaviour
         scoreText.text = playerData.scoreInStage.ToString();
         feedbackText.text = GetFeedback();
         // Simpan hasil session
-        SaveSessionResult(timeElapse != null ? timeElapse.timeElapsed : 0f);
         Time.timeScale = 0; // Pause the game
     }
     
@@ -92,6 +91,7 @@ public class ResultGameOverManager : MonoBehaviour
     public void GoToMainMenu()
     {
         // Logika untuk kembali ke menu utama
+        SaveSessionResult(timeElapse != null ? timeElapse.timeElapsed : 0f);
         Debug.Log("Kembali ke menu utama");
         Time.timeScale = 1; // Resume the game time
         resultPanel.SetActive(false); // Sembunyikan panel hasil

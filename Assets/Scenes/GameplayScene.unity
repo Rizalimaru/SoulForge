@@ -56969,6 +56969,7 @@ MonoBehaviour:
   staff: {fileID: 770313701}
   pauseUiManager: {fileID: 1633297042}
   tutorialHandler: {fileID: 750913779}
+  traitsData: {fileID: 11400000, guid: b29c9a4dfba2d8847b5164f885c4ed40, type: 2}
 --- !u!1 &560244436
 GameObject:
   m_ObjectHideFlags: 0
@@ -62389,12 +62390,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604360065}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 777.6325, y: 600.9049, z: 0.7794931}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -310.89716, y: 89.642975, z: 2.6340818}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1969342795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &604811700
 PrefabInstance:
@@ -201128,6 +201129,7 @@ Transform:
   - {fileID: 692676436}
   - {fileID: 559727543}
   - {fileID: 582639133}
+  - {fileID: 604360067}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1969536984
@@ -220008,7 +220010,6 @@ SceneRoots:
   - {fileID: 8330924066440739724}
   - {fileID: 1400723890}
   - {fileID: 1629632005}
-  - {fileID: 604360067}
   - {fileID: 1749319175}
   - {fileID: 5116544072810411260}
   - {fileID: 4036025642145353311}

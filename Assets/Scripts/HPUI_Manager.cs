@@ -18,6 +18,10 @@ public class HPUI_Manager : MonoBehaviour
     void Update()
     {
         hpBar.fillAmount = playerData.currentHP / playerData.maxHP; // Update HP bar berdasarkan HP saat ini
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            playerData.currentHP -= 10;
+        }
     }
 
     IEnumerator RegenHP()

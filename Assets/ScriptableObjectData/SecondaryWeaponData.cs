@@ -14,4 +14,21 @@ public class SecondaryWeaponData : ScriptableObject
     public float baseDamage; // Damage dasar senjata
     public float baseCooldown; // Cooldown dasar senjata
     public List<WeaponLevelData> levels; // Daftar level senjata
+    public List<TraitEffects> traitEffects; // Daftar efek trait yang diberikan oleh senjata
+}
+
+[System.Serializable]
+public class TraitEffects
+{
+    public TraitTypes traitType;
+    public int value;
+}
+
+public enum TraitTypes
+{
+    Extraversion,
+    Conscientiousness,
+    Agreeableness,
+    Neuroticism,
+    Openness
 }

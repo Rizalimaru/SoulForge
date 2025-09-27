@@ -79,6 +79,22 @@ public class SecondaryWeaponSelectionUI : MonoBehaviour
 
     void SelectWeapon(WeaponEntry entry)
     {
+        // Terapkan efek traits dari SecondaryWeaponData hanya saat pertama kali diambil (level 0)
+        if (entry.currentLevel == 0 && entry.weaponData.traitEffects != null)
+        {
+            foreach (var trait in entry.weaponData.traitEffects)
+            {
+                switch (trait.traitType)
+                {
+                    case TraitTypes.Extraversion:        traitsData.Extraversion        += trait.value; break;
+                    case TraitTypes.Conscientiousness:   traitsData.Conscientiousness   += trait.value; break;
+                    case TraitTypes.Agreeableness:       traitsData.Agreeableness       += trait.value; break;
+                    case TraitTypes.Neuroticism:         traitsData.Neuroticism         += trait.value; break;
+                    case TraitTypes.Openness:            traitsData.Openness            += trait.value; break;
+                }
+            }
+        }
+
         // Aktifkan GameObject jika baru diambil (saat naik ke level 1)
         if (entry.currentLevel == 0 && entry.weaponObject != null)
             entry.weaponObject.SetActive(true);
